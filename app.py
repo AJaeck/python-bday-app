@@ -7,6 +7,8 @@ from flask import Flask, request, render_template
 from dotenv import load_dotenv
 import os
 
+#Import WTForms https://flask-wtf.readthedocs.io/en/1.0.x/
+
 
 # Sendinblue API Docs: https://developers.sendinblue.com/reference/
 import sib_api_v3_sdk 
@@ -21,7 +23,7 @@ headers = {
 # take environment variables from .env.
 load_dotenv()
 
-# initiate flask app
+# initiate flask app and CSRF Protection
 app = Flask(__name__)
 
 # create routes
@@ -29,7 +31,7 @@ app = Flask(__name__)
 def index():
     return render_template("index.html")
 
-@app.route('/glueckwunsch')
+@app.route('/glueckwunsch', methods=["GET","POST"])
 def glueckwunsch():
     return render_template("glueckwunsch.html")
 
@@ -48,7 +50,7 @@ def form():
         return render_template("glueckwunsch.html", error_statement=error_statement, name=name, gw_text=gw_text, email=email )
 
      #set a list of secrets
-    annas_secrets = ["Butter", "butter"]
+    annas_secrets = ["Hailey", "hailey"]
     if not secret in annas_secrets:
         error_statement = "Das war wohl nicht die richtige Antwort auf die Sicherheitsfrage. Wenn du Hilfe brauchst kontaktiere hubby@anna-mausebaer.de"
         return render_template("glueckwunsch.html", error_statement=error_statement, name=name, gw_text=gw_text, email=email )

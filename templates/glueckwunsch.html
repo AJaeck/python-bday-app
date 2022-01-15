@@ -13,7 +13,7 @@
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     {% endif %}
-    <form class="row g-3 needs-validation" style="align-items: center" action="/versand" method="POST" novalidate>
+    <form id="gw-form" class="row g-3 needs-validation" style="align-items: center" action="/versand" method="POST" novalidate>
       <div class="form-floating col-md-6">
         <input type="text" class="form-control" id="floatingName" placeholder="Name" required name="name" />
         <label for="floatingName">Name</label>
@@ -32,10 +32,10 @@
         <div class="valid-feedback">Läuft 👍</div>
         <div class="invalid-feedback">Upps...Du hast die Glückwünsche vergessen 🙊</div>
       </div>
-      <div class="form-floating col-md-6 secret">What is Anna's favorite food?</div>
+      <div class="form-floating col-md-6 secret">Wie heißt Anna's Hund?</div>
       <div class="form-floating col-md-6">
         <input type="text" class="form-control" id="floatingSecret" placeholder="Anna's Secret" required name="secret" />
-        <label for="floatingSecret">Anna's Secret</label>
+        <label for="floatingSecret">Sicherheitsfrage</label>
         <div class="valid-feedback">Läuft 👍</div>
         <div class="invalid-feedback">Du wirst doch wohl kein Bot sein 🤖</div>
       </div>
