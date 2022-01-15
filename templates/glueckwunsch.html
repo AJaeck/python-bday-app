@@ -1,0 +1,49 @@
+{% extends "base.html" %} {% block content %}
+<body>
+  <div class="container form_page">
+    <nav><a href="/">Zurück</a></nav>
+    <h1>Versende Glückwünsche</h1>
+    <p>
+      Damit du nicht vergisst der Anna zu gratulieren, kannst du ihr jetzt schon Geburtstagwünsche zukommen lassen. Deine Nachricht wird ihr an ihrem Geburtstag
+      automatisch per E-Mai versand. <a href="">Beispiel Hier!</a>
+    </p>
+    {% if error_statement %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>Holy guacamole!</strong> {{ error_statement }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+    <form class="row g-3 needs-validation" style="align-items: center" action="/versand" method="POST" novalidate>
+      <div class="form-floating col-md-6">
+        <input type="text" class="form-control" id="floatingName" placeholder="Name" required name="name" />
+        <label for="floatingName">Name</label>
+        <div class="valid-feedback">Läuft 👍</div>
+        <div class="invalid-feedback">Du hast deinen Namen vergessen dum dum 🤓</div>
+      </div>
+      <div class="form-floating col-md-6">
+        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" required name="email" />
+        <label for="floatingInput">Email address</label>
+        <div class="valid-feedback">Läuft 👍</div>
+        <div class="invalid-feedback">Ohne E-Mail ohne mich 😡</div>
+      </div>
+      <div class="form-floating col-12">
+        <textarea class="form-control" placeholder="Leave your question here" id="floatingTextarea" style="height: 100px" required name="gw_text"></textarea>
+        <label for="floatingTextarea">Deine Glückwünsche</label>
+        <div class="valid-feedback">Läuft 👍</div>
+        <div class="invalid-feedback">Upps...Du hast die Glückwünsche vergessen 🙊</div>
+      </div>
+      <div class="form-floating col-md-6 secret">What is Anna's favorite food?</div>
+      <div class="form-floating col-md-6">
+        <input type="text" class="form-control" id="floatingSecret" placeholder="Anna's Secret" required name="secret" />
+        <label for="floatingSecret">Anna's Secret</label>
+        <div class="valid-feedback">Läuft 👍</div>
+        <div class="invalid-feedback">Du wirst doch wohl kein Bot sein 🤖</div>
+      </div>
+      <div class="col-12 d-grid">
+        <button type="submit">Senden 🚀</button>
+      </div>
+    </form>
+  </div>
+</body>
+<script src="{{ url_for('static', filename='js/form.js')}}"></script>
+{% endblock %}

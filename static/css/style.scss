@@ -1,0 +1,135 @@
+//colors
+$light-red: #f83077;
+$dark-red: #f50057;
+$background: #ffb7b7;
+$white: #ffdddd;
+
+body {
+  height: 100vh;
+  font-family: "Roboto", sans-serif;
+  background: $background;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+h1 {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  font-family: "Sacramento", cursive;
+  font-size: 96px;
+  letter-spacing: 5px;
+  margin: 0;
+  padding: 0;
+}
+a {
+  text-decoration: none;
+}
+p {
+  font-size: 20px;
+  line-height: 35px;
+  letter-spacing: 0.2px;
+  color: $light-red;
+}
+button {
+  padding: 10px;
+  background-color: transparent;
+  margin: 10px;
+  color: $dark-red;
+  border: 2px solid $dark-red;
+  font-size: 30px;
+  transition: all 0.25s ease-in-out, transform 150ms ease;
+  &:hover {
+    color: rgb(255, 255, 255);
+    background-color: $dark-red;
+    border-color: $dark-red;
+    a {
+      color: $white;
+    }
+  }
+  &:focus {
+    box-shadow: #f5005683 0px 0px 0px 0.25rem;
+  }
+  a {
+    color: $dark-red;
+  }
+}
+form {
+  label {
+    color: $dark-red;
+  }
+  .form-control {
+    background-color: $white;
+    border: none;
+    color: $light-red;
+    &:focus {
+      border-color: $dark-red;
+      box-shadow: #f5005683 0px 0px 0px 0.25rem;
+    }
+  }
+}
+
+.was-validated {
+  .form-control {
+    &:valid {
+      border: 1px solid green;
+    }
+    &:invalid {
+      border: 1px solid red;
+    }
+  }
+}
+
+.form_page {
+  p {
+    text-align: center;
+  }
+  a {
+    border-bottom: 4px solid #0d6efd;
+    padding-bottom: 3px;
+    transition: all 0.3s ease;
+    &:hover {
+      padding-bottom: 4.5px;
+    }
+  }
+  button {
+    margin: 0 auto;
+  }
+  .secret {
+    font-size: 25px;
+    font-weight: 600;
+    text-align: center;
+  }
+}
+.timer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 50px 0;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  button {
+    margin: 0 50px;
+  }
+}
+
+.container-number {
+  text-align: center;
+}
+.number {
+  margin: 0 10px;
+  font-size: 96px;
+  font-weight: bold;
+}
+.doppelpunkt {
+  font-size: 96px;
+  font-weight: 200;
+  margin: 0 50px;
+}
+.letter {
+  margin: 10px;
+  font-size: 50px;
+}
