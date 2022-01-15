@@ -11,7 +11,4 @@ Source: https://www.digitalocean.com/community/tutorials/how-to-deploy-a-flask-a
    "export FLASK_ENV=development"
    "export FLASK_APP=app.py"
 
-3. If Deploy necessary, push to heroku with:
-   > Commit repo changes
-   > Login to Heroku: "heroku login"
-   > Push to Heroku: "git push heroku master"
+3. If Deploy necessary, push to Github main branch
