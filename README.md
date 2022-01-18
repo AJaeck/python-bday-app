@@ -8,7 +8,7 @@ Source: https://www.digitalocean.com/community/tutorials/how-to-deploy-a-flask-a
    "source ~/.venvs/flask/Scripts/activate"
 
 2. If Development Env necessary, set env variables with:
-   "export FLASK_ENV=development"
-   "export FLASK_APP=app.py"
+   export FLASK_ENV=development
+   export FLASK_APP=app.py
 
 3. If Deploy necessary, push to Github main branch
