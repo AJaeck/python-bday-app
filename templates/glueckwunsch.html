@@ -1,0 +1,82 @@
+{% extends "base.html" %} {% block content %}
+<body>
+  <div class="container form_page">
+    <nav><a href="/">Zurück</a></nav>
+    <h1>Versende Glückwünsche</h1>
+    <p>
+      Damit du nicht vergisst der Anna zu gratulieren, kannst du ihr jetzt schon Geburtstagwünsche zukommen lassen. Deine Nachricht wird ihr an ihrem Geburtstag
+      automatisch per E-Mai versand. <a href="">Beispiel Hier!</a>
+    </p>
+    {% if error_statement %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>Holy guacamole🥑</strong> {{ error_statement }} Wenn du Hilfe brauchst kontaktiere
+      <a href="mailto:hubby@anna-mausebaer.de"><strong>hubby@anna-mausebaer.de</strong></a>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+    <form id="gw-form" class="row g-3 needs-validation" style="align-items: center" method="POST" action="/glueckwunsch" novalidate>
+      {{ form.csrf_token }}
+      <div class="form-floating col-md-6">
+        {% if form.name.errors %} {{ form.name(class_="form-control is-invalid", placeholder="Name") }}
+        <div class="invalid-feedback">
+          {% for error in form.name.errors %}
+          <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+        {% else %} {{ form.name(class_="form-control", placeholder="Name") }}
+        <div class="valid-feedback">Läuft 👍</div>
+        <div class="invalid-feedback">Du hast deinen Namen vergessen dum dum 🤓</div>
+        {% endif %} {{ form.name.label }}
+      </div>
+      <div class="form-floating col-md-6">
+        {% if form.email.errors %} {{ form.email(class_="form-control is-invalid", placeholder="email") }}
+        <div class="invalid-feedback">
+          {% for error in form.email.errors %}
+          <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+        {% else %} {{ form.email(class_="form-control", placeholder="email") }}
+        <div class="valid-feedback">Läuft 👍</div>
+        <div class="invalid-feedback">Ohne E-Mail ohne mich 😡</div>
+        {% endif %} {{ form.email.label }}
+      </div>
+
+      <div class="form-floating col-12">
+        {% if form.gw_text.errors %} {{ form.gw_text(class_="form-control is-invalid", placeholder="gw_text") }}
+        <div class="invalid-feedback">
+          {% for error in form.gw_text.errors %}
+          <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+        {% else %} {{ form.gw_text(class_="form-control", placeholder="gw_text") }}
+        <div class="valid-feedback">Läuft 👍</div>
+        <div class="invalid-feedback">Upps...Du hast die Glückwünsche vergessen 🙊</div>
+        {% endif %} {{ form.gw_text.label }}
+      </div>
+      <div class="form-floating col-md-6">
+        {% if form.secret.errors %} {{ form.secret(class_="form-control is-invalid", placeholder="secret") }}
+        <div class="invalid-feedback">
+          {% for error in form.secret.errors %}
+          <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+        {% else %} {{ form.secret(class_="form-control", placeholder="secret") }}
+        <div class="valid-feedback">Läuft 👍</div>
+        <div class="invalid-feedback">Beantworte bitte die Sicherheitsfrage du Bot 🤖</div>
+        {% endif %} {{ form.secret.label }}
+      </div>
+      <div class="form-floating col-md-6">
+        {{ form.recaptcha }}
+        <div class="invalid-feedback">Bist du ein Bot 🤖?</div>
+        {% if form.recaptcha.errors %} {% for error in form.recaptcha.errors %}
+        <span style="width: 100%; margin-top: 0.25rem; font-size: 0.875em; color: #dc3545">Haken setzen du Bot 🤖</span>
+        {% endfor %} {% endif %}
+      </div>
+      <div class="col-12 d-grid">
+        <button type="submit">Senden 🚀</button>
+      </div>
+    </form>
+  </div>
+</body>
+<script src="{{ url_for('static', filename='js/form.js')}}"></script>
+{% endblock %}

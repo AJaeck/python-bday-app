@@ -1,0 +1,33 @@
+{% extends "base.html" %} {% block content %}
+<body>
+  <div class="container">
+    <h1>My Birthday Countdown</h1>
+    <div class="timer">
+      <div class="container-number">
+        <div id="days" class="number">00</div>
+        <div class="days letter">D</div>
+      </div>
+      <div class="doppelpunkt">:</div>
+      <div class="container-number">
+        <div id="hours" class="number">00</div>
+        <div class="hours letter">H</div>
+      </div>
+      <div class="doppelpunkt">:</div>
+      <div class="container-number">
+        <div id="minutes" class="number">00</div>
+        <div class="minutes letter">M</div>
+      </div>
+      <div class="doppelpunkt">:</div>
+      <div class="container-number">
+        <div id="seconds" class="number">00</div>
+        <div class="seconds letter">S</div>
+      </div>
+    </div>
+    <div class="buttons">
+      <button type="button" class=""><a href="{{ url_for('glueckwunsch')}}">Send Wishes 💥</a></button>
+      <button type="button" class=""><a href="">Party Time 🎉</a></button>
+    </div>
+  </div>
+</body>
+<script src="{{ url_for('static', filename='js/countdown.js')}}"></script>
+{% endblock %}
