@@ -85,33 +85,3 @@ def form():
         return render_template("versand.html", name=name, email=email)
 
     return redirect('/')
-
-
-@app.route("/real", methods=["POST"])
-def success():
-    form = GW_Form()
-
-    name=form.name.data
-    email=form.email.data
-    gw_text=form.gw_text.data
-    secret=form.secret.data
-
-    if form.validate_on_submit():                
-
-        url_add_contact = base + "contacts/doubleOptinConfirmation"
-        payload = {
-                "attributes": {
-                    "VORNAME": name,
-                    "GW_TEXT": gw_text
-                },
-                "includeListIds": [2],
-                "updateEnabled": True,
-                "email": email,
-                "templateId": 1,
-                "redirectionUrl": "http://127.0.0.1:5000/"
-        }
-        response = requests.request("POST", url_add_contact, json=payload, headers=headers)
-        print("New Form Submission from: " + name)
-        print(response.text)
-
-    return render_template("versand.html", name=name, email=email)
