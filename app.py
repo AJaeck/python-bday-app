@@ -9,8 +9,11 @@ from flask import Flask, request, render_template, redirect, url_for
 from dotenv import load_dotenv
 import os
 
+# take environment variables from .env.
+load_dotenv()
+
 #Import WTForms https://flask-wtf.readthedocs.io/en/1.0.x/
-from forms import GW_Form
+from forms import GW_Form, Upload_Form
 
 # Sendinblue API Docs: https://developers.sendinblue.com/reference/
 import sib_api_v3_sdk 
@@ -22,8 +25,13 @@ headers = {
     "api-key": os.getenv("SIB_Key")
 }
 
-# take environment variables from .env.
-load_dotenv()
+# Initialie Imagekit.io: https://github.com/imagekit-developer/imagekit-python
+from imagekitio import ImageKit
+imagekit = ImageKit(
+    private_key=os.getenv("IK_Private_Key"),
+    public_key=os.getenv("IK_Public_Key"),
+    url_endpoint = os.getenv("IK_Endpoint")
+)
 
 # initiate flask app and Config Variables
 # recaptcha keys and csrf protection
@@ -37,8 +45,33 @@ app.config['RECAPTCHA_PRIVATE_KEY'] = os.getenv("SECRETKEY")
 def index():
     return render_template("index.html")
 
-@app.route('/glueckwunsch', methods=["GET", "POST"])
-def glueckwunsch():    
+@app.route('/send-pics', methods=["GET", "POST"])
+def send_pics(): 
+
+    form = Upload_Form()
+
+    if form.validate_on_submit():  
+
+        print(form.upload.data)
+        print(form.upload.errors)
+        return redirect('/')
+
+        #imagekit.upload_file(
+        #file= "https://www.gettyimages.at/gi-resources/images/500px/983794168.jpg", # required
+        #file_name= "test.jpg", # required
+        #options= {
+        #    "folder" : "/example-folder/",
+        #    "tags": ["sample-tag"],
+        #    "is_private_file": False,
+        #    "use_unique_file_name": True,
+        #    "response_fields": ["is_private_file", "tags"],
+        #    }
+        #)   
+
+    return render_template("send-pics.html", form=form)
+
+@app.route('/send-wishes', methods=["GET", "POST"])
+def send_wishes():    
     form = GW_Form()
 
     # form data
@@ -68,11 +101,11 @@ def glueckwunsch():
         return redirect('versand', code=307)
     elif form.secret.errors:
         error_statement = "Das war wohl nicht die richtige Antwort auf die Sicherheitsfrage."
-        return render_template("glueckwunsch.html", form=form, error_statement=error_statement, name=name, gw_text=gw_text, email=email )
+        return render_template("send-wishes.html", form=form, error_statement=error_statement, name=name, gw_text=gw_text, email=email )
     else:
         print(form.errors)
 
-    return render_template("glueckwunsch.html", form=form)
+    return render_template("send-wishes.html", form=form)
 
 @app.route("/versand", methods=["POST", "GET"])
 def form():
