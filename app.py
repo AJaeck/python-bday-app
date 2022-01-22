@@ -1,15 +1,13 @@
 # Flask docs @ https://flask.palletsprojects.com/en/2.0.x/
-from ast import NotIn
-from re import X
 from unicodedata import name
-from flask import Flask, request, render_template, redirect, url_for
+from flask import Flask, request, render_template, redirect, flash
+from werkzeug.utils import secure_filename
+import uuid as uuid
+import os
 
 # Code of your application, which uses environment variables (e.g. from `os.environ` or
 # `os.getenv`) as if they came from the actual environment.
 from dotenv import load_dotenv
-import os
-
-# take environment variables from .env.
 load_dotenv()
 
 #Import WTForms https://flask-wtf.readthedocs.io/en/1.0.x/
@@ -33,12 +31,21 @@ imagekit = ImageKit(
     url_endpoint = os.getenv("IK_Endpoint")
 )
 
+# set file upload definitions
+UPLOAD_FOLDER = 'static/images/'
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'svg'}
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 # initiate flask app and Config Variables
 # recaptcha keys and csrf protection
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv("SECRET")
 app.config['RECAPTCHA_PUBLIC_KEY'] = os.getenv("SITEKEY")
 app.config['RECAPTCHA_PRIVATE_KEY'] = os.getenv("SECRETKEY")
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 25 * 1024 * 1024 # 25MB
 
 # create routes
 @app.route('/')
@@ -50,11 +57,16 @@ def send_pics():
 
     form = Upload_Form()
 
-    if form.validate_on_submit():  
-
-        print(form.upload.data)
-        print(form.upload.errors)
-        return redirect('/')
+    if form.validate_on_submit():
+        image = form.upload.data
+        # Image save to static image folder
+        image_filename = secure_filename(image.filename)
+        image_name = str(uuid.uuid1()) + "_" + image_filename
+        image.save(os.path.join(app.config['UPLOAD_FOLDER'], image_name))
+        print(image)
+        print(image_filename)
+        print(image_name)
+        flash('Document uploaded successfully.')
 
         #imagekit.upload_file(
         #file= "https://www.gettyimages.at/gi-resources/images/500px/983794168.jpg", # required

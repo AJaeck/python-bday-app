@@ -6,8 +6,9 @@
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti labore voluptatibus iusto nihil velit voluptate, optio molestias mollitia placeat
       dolore laboriosam incidunt qui sed possimus aliquam sint distinctio omnis deserunt!
     </p>
-    <form id="pic-form" class="row g-3 needs-validation" style="align-items: center" method="POST" action="/send-pics" novalidate>
-      <div class="form-floating col-md-6">
+    <form id="pic-form" class="row g-3 needs-validation" style="align-items: center" enctype="multipart/form-data" method="POST" action="/send-pics" novalidate>
+      {{ form.csrf_token }}
+      <div class="col-6 form-group">
         {% if form.upload.errors %} {{ form.upload(class_="form-control is-invalid", placeholder="upload") }}
         <div class="invalid-feedback">
           {% for error in form.upload.errors %}
@@ -19,7 +20,7 @@
         <div class="invalid-feedback">Du hast kein Bild hochgeladen dum dum 🤓</div>
         {% endif %}
       </div>
-      <div class="col-md-6">
+      <div class="col-6 form-group">
         <button type="submit">Senden 🚀</button>
       </div>
     </form>

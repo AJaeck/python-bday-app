@@ -1,7 +1,7 @@
 from flask_wtf import RecaptchaField, FlaskForm
-from wtforms import StringField, validators, TextAreaField, SubmitField, EmailField
+from wtforms import StringField, TextAreaField, EmailField
 from wtforms.validators import DataRequired, Email, Length, ValidationError
-from flask_wtf.file import FileField
+from flask_wtf.file import FileField, FileRequired, FileAllowed
 
 # Form ORM
 class GW_Form(FlaskForm):
@@ -33,6 +33,7 @@ class GW_Form(FlaskForm):
             raise ValidationError('Das war die falsche Antwort 😪')
 
 class Upload_Form(FlaskForm):
-    upload = FileField("Lade ein Bild hoch", validators=[
-    DataRequired('Du musst schon ein Bild hochladen')
+    upload = FileField('Lade ein Bild hoch', validators=[
+        FileRequired("Du musst schon ein Bild hochladen 😪"), 
+        FileAllowed(['png', 'jpg', 'jpeg', 'gif', 'svg'], 'Es sind nur folgende Formate erlaubt: .png, .jpg, .jpeg, .gif, .svg')
     ])
