@@ -135,3 +135,21 @@ form {
   margin: 10px;
   font-size: 50px;
 }
+
+.preload {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  background: $background;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  transition: opacity 0.5s ease;
+  z-index: 99;
+}
+
+.preload-finish {
+  pointer-events: none;
+  opacity: 0;
+}
