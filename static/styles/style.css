@@ -3,12 +3,19 @@ html {
 }
 
 body {
-  height: 100vh;
   font-family: "Roboto", sans-serif;
   background: #ffb7b7;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.container__100 {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 h1 {
@@ -92,6 +99,22 @@ p {
 }
 
 /* Breakpoints */
+@media (max-width: 1399.98px) {
+  h1 {
+    font-size: calc(96px / 1.5);
+  }
+  .btn-custom {
+    font-size: calc(30px / 1.5);
+  }
+  p {
+    font-size: calc(30px / 2);
+    line-height: calc(35px / 1.5);
+  }
+  .preload img {
+    width: 200px;
+  }
+}
+
 .timer {
   display: flex;
   justify-content: center;
@@ -106,10 +129,6 @@ p {
 
 .buttons button {
   margin: 0 50px;
-}
-
-.container-number {
-  text-align: center;
 }
 
 .number {
@@ -127,6 +146,30 @@ p {
 .letter {
   margin: 10px;
   font-size: 50px;
+}
+
+/* Breakpoints */
+@media (max-width: 1399.98px) {
+  .timer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 50px 0;
+  }
+  .number {
+    margin: 0 10px;
+    font-size: calc(96px / 2);
+    font-weight: bold;
+  }
+  .doppelpunkt {
+    font-size: calc(96px / 2);
+    font-weight: 200;
+    margin: 0 calc(50px / 2);
+  }
+  .letter {
+    margin: 10px;
+    font-size: calc(50px / 2);
+  }
 }
 
 .link_decor {
@@ -151,6 +194,11 @@ p {
   background-size: 100% 100%;
 }
 
+.alert-custom {
+  position: absolute;
+  top: 10px;
+}
+
 form label {
   color: #f50057;
 }
@@ -166,11 +214,63 @@ form .form-control:focus {
   box-shadow: #f5005683 0px 0px 0px 0.25rem;
 }
 
+form textarea {
+  height: 100px !important;
+}
+
 .was-validated .form-control:valid {
   border: 1px solid green;
 }
 
 .was-validated .form-control:invalid {
   border: 1px solid red;
+}
+
+/* Drag & Drop 
+* Source: https://css-tricks.com/drag-and-drop-file-uploading/ 
+*/
+.box__file {
+  width: 0.1px;
+  height: 0.1px;
+  overflow: hidden;
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+}
+
+.box__dragndrop,
+.box__uploading,
+.box__success,
+.box__error {
+  display: none;
+}
+
+.box.has-advanced-upload {
+  background-color: white;
+  outline: 2px dashed black;
+  outline-offset: -10px;
+}
+
+.box.has-advanced-upload .box__dragndrop {
+  display: inline;
+}
+
+.box.is-dragover {
+  background-color: grey;
+}
+
+.box.is-uploading .box__input {
+  visibility: none;
+}
+
+.box.is-uploading .box__uploading {
+  display: block;
+}
+
+/* Breakpoints */
+@media (max-width: 1399.98px) {
+  .form-floating label {
+    font-size: 12px;
+  }
 }
 /*# sourceMappingURL=style.css.map */

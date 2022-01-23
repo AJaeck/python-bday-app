@@ -72,28 +72,30 @@ def send_pics():
     form = Upload_Form()
 
     if form.validate_on_submit():
-        image = form.upload.data
-
-        # Image save to static image folder
-        image_filename = secure_filename(image.filename)
-        image_name = str(uuid.uuid1()) + "_" + image_filename
-        image_path = os.path.join(app.config['UPLOAD_FOLDER'], image_name) 
-        image.save(image_path)
-
-        flash('Document uploaded successfully.')
-
-        # Upload Image to Imagekit
-        upload = imagekit.upload(
-            file=open(image_path, "rb"),
-            file_name=image_name,
-            options={
-            "response_fields": ["is_private_file", "tags"],
-            "tags": ["tag1", "tag2"]
-            },
-        )
-        print("Upload binary", upload)
-        os.remove(image_path)
-        print("Remove Temp Image")
+        files_filenames = []
+        images = form.file.data
+        image_numbers = 0
+        for i in images:
+            image_numbers = 1
+            # Image save to static image folder
+            image_filename = secure_filename(i.filename)
+            image_name = str(uuid.uuid1()) + "_" + image_filename
+            image_path = os.path.join(app.config['UPLOAD_FOLDER'], image_name) 
+            i.save(image_path)
+            # Upload Image to Imagekit
+            upload = imagekit.upload(
+                file=open(image_path, "rb"),
+                file_name=image_name,
+                options={
+                "response_fields": ["is_private_file", "tags"],
+                "tags": ["tag1", "tag2"]
+                },
+            )
+            print("Upload binary", upload)
+            os.remove(image_path)
+            print("Remove Temp Image")
+            image_numbers = image_numbers + 1
+        flash(f'{image_numbers} Bilder wurden erfolgreich hochgeladen', 'success')
 
         #imagekit.upload_file(
         #file= "https://www.gettyimages.at/gi-resources/images/500px/983794168.jpg", # required

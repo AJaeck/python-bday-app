@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% block content %}
 <body>
-  <div class="container form_page">
+  <div class="container form_page px-4 py-5">
     <nav>
       <a class="link-slider" href="/"><i class="fas fa-backward"></i> Zurück</a>
     </nav>
@@ -16,7 +16,7 @@
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     {% endif %}
-    <form id="gw-form" class="row g-3 needs-validation text-center" method="POST" action="/send-wishes" novalidate>
+    <form id="gw-form" class="row g-3 needs-validation" method="POST" action="/send-wishes" novalidate>
       {{ form.csrf_token }}
       <div class="form-floating col-md-6">
         {% if form.name.errors %} {{ form.name(class_="form-control is-invalid", placeholder="Name") }}
