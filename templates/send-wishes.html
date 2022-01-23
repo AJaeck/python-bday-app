@@ -11,10 +11,10 @@
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
       <strong>Holy guacamole🥑</strong> {{ error_statement }} Wenn du Hilfe brauchst kontaktiere
       <a href="mailto:hubby@anna-mausebaer.de"><strong>hubby@anna-mausebaer.de</strong></a>
-      <div type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></div>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     {% endif %}
-    <form id="gw-form" class="row g-3 needs-validation" style="align-items: center" method="POST" action="/send-wishes" novalidate>
+    <form id="gw-form" class="row g-3 needs-validation text-center" method="POST" action="/send-wishes" novalidate>
       {{ form.csrf_token }}
       <div class="form-floating col-md-6">
         {% if form.name.errors %} {{ form.name(class_="form-control is-invalid", placeholder="Name") }}
@@ -73,7 +73,7 @@
         {% endfor %} {% endif %}
       </div>
       <div class="col-12 d-grid">
-        <button type="submit">Senden 🚀</button>
+        <button class="btn btn-custom" type="submit">Senden 🚀</button>
       </div>
     </form>
   </div>

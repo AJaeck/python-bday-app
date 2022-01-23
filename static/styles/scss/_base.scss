@@ -4,6 +4,9 @@ $dark-red: #f50057;
 $background: #ffb7b7;
 $white: #ffdddd;
 
+html {
+  overflow-x: hidden;
+}
 body {
   height: 100vh;
   font-family: "Roboto", sans-serif;
@@ -13,14 +16,8 @@ body {
   align-items: center;
 }
 h1 {
-  display: flex;
-  justify-content: center;
-  text-align: center;
   font-family: "Playfair Display", serif;
   font-size: 96px;
-  letter-spacing: 5px;
-  margin: 0;
-  padding: 0;
 }
 a {
   text-decoration: none;
@@ -31,7 +28,7 @@ p {
   letter-spacing: 0.2px;
   color: $light-red;
 }
-button {
+.btn-custom {
   padding: 10px;
   background-color: transparent;
   margin: 10px;
@@ -69,4 +66,25 @@ button {
 .preload-finish {
   pointer-events: none;
   opacity: 0;
+}
+
+/* Breakpoints */
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+}
+
+// X-Large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+}
+
+// XX-Large devices (larger desktops, 1400px and up)
+@media (min-width: 1400px) {
 }

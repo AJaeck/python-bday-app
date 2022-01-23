@@ -4,7 +4,7 @@ form {
   }
   .form-control {
     background-color: $white;
-    border: none;
+    border: transparent;
     color: $light-red;
     &:focus {
       border-color: $dark-red;
