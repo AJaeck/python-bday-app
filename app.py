@@ -4,6 +4,7 @@ from flask import Flask, request, render_template, redirect, flash
 from werkzeug.utils import secure_filename
 import uuid as uuid
 import os
+import base64
 
 # Code of your application, which uses environment variables (e.g. from `os.environ` or
 # `os.getenv`) as if they came from the actual environment.
@@ -32,7 +33,7 @@ imagekit = ImageKit(
 )
 
 # set file upload definitions
-UPLOAD_FOLDER = 'static/images/'
+UPLOAD_FOLDER = 'static/images/uploads/'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'svg'}
 def allowed_file(filename):
     return '.' in filename and \
@@ -52,6 +53,19 @@ app.config['MAX_CONTENT_LENGTH'] = 25 * 1024 * 1024 # 25MB
 def index():
     return render_template("index.html")
 
+
+@app.route('/auth', methods=["GET", "POST"])
+def auth():
+    imagekit = ImageKit(
+    private_key=os.getenv("IK_Private_Key"),
+    public_key=os.getenv("IK_Public_Key"),
+    url_endpoint = os.getenv("IK_Endpoint")
+    )
+
+    auth_params = imagekit.get_authentication_parameters()
+
+    print("Auth params-", auth_params)
+
 @app.route('/send-pics', methods=["GET", "POST"])
 def send_pics(): 
 
@@ -59,14 +73,27 @@ def send_pics():
 
     if form.validate_on_submit():
         image = form.upload.data
+
         # Image save to static image folder
         image_filename = secure_filename(image.filename)
         image_name = str(uuid.uuid1()) + "_" + image_filename
-        image.save(os.path.join(app.config['UPLOAD_FOLDER'], image_name))
-        print(image)
-        print(image_filename)
-        print(image_name)
+        image_path = os.path.join(app.config['UPLOAD_FOLDER'], image_name) 
+        image.save(image_path)
+
         flash('Document uploaded successfully.')
+
+        # Upload Image to Imagekit
+        upload = imagekit.upload(
+            file=open(image_path, "rb"),
+            file_name=image_name,
+            options={
+            "response_fields": ["is_private_file", "tags"],
+            "tags": ["tag1", "tag2"]
+            },
+        )
+        print("Upload binary", upload)
+        os.remove(image_path)
+        print("Remove Temp Image")
 
         #imagekit.upload_file(
         #file= "https://www.gettyimages.at/gi-resources/images/500px/983794168.jpg", # required
