@@ -139,6 +139,18 @@ p {
   padding-bottom: 4.5px;
 }
 
+.link-slider {
+  transition: all 0.3s;
+  background-size: 0% 100%;
+  background-position: 100%;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(transparent calc(100% - 1px), #0a58ca 1px) !important;
+}
+
+.link-slider:hover {
+  background-size: 100% 100%;
+}
+
 form label {
   color: #f50057;
 }
@@ -160,19 +172,5 @@ form .form-control:focus {
 
 .was-validated .form-control:invalid {
   border: 1px solid red;
-}
-
-.form_page p {
-  text-align: center;
-}
-
-.form_page button {
-  margin: 0 auto;
-}
-
-.form_page .secret {
-  font-size: 25px;
-  font-weight: 600;
-  text-align: center;
 }
 /*# sourceMappingURL=style.css.map */

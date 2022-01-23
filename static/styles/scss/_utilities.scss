@@ -6,3 +6,13 @@
     padding-bottom: 4.5px;
   }
 }
+.link-slider {
+  transition: all 0.3s;
+  background-size: 0% 100%;
+  background-position: 100%;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(transparent calc(100% - 1px), #0a58ca 1px) !important;
+  &:hover {
+    background-size: 100% 100%;
+  }
+}

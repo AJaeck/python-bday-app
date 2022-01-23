@@ -1,16 +1,18 @@
 {% extends "base.html" %} {% block content %}
 <body>
   <div class="container form_page">
-    <nav><a href="/">Zurück</a></nav>
-    <h1>Versende Glückwünsche</h1>
-    <p>
+    <nav>
+      <a class="link-slider" href="/"><i class="fas fa-backward"></i> Zurück</a>
+    </nav>
+    <h1 class="text-center">Versende Glückwünsche</h1>
+    <p class="text-center">
       Damit du nicht vergisst der Anna zu gratulieren, kannst du ihr jetzt schon Geburtstagwünsche zukommen lassen. Deine Nachricht wird ihr an ihrem Geburtstag
-      automatisch per E-Mai versand. <a href="">Beispiel Hier!</a>
+      automatisch per E-Mai versand. <a class="link-slider" href="">Beispiel Hier!</a>
     </p>
     {% if error_statement %}
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
       <strong>Holy guacamole🥑</strong> {{ error_statement }} Wenn du Hilfe brauchst kontaktiere
-      <a href="mailto:hubby@anna-mausebaer.de"><strong>hubby@anna-mausebaer.de</strong></a>
+      <a class="link-slider" href="mailto:hi@anna-mausebaer.de"><strong>hi@anna-mausebaer.de</strong></a>
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     {% endif %}
@@ -73,7 +75,7 @@
         {% endfor %} {% endif %}
       </div>
       <div class="col-12 d-grid">
-        <button class="btn btn-custom btn-custom__reverse" type="submit">Senden 🚀</button>
+        <button class="btn btn-custom btn-custom__reverse mx-auto" type="submit">Senden 🚀</button>
       </div>
     </form>
   </div>
