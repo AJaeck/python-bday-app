@@ -1,0 +1,38 @@
+form {
+  label {
+    color: $dark-red;
+  }
+  .form-control {
+    background-color: $white;
+    border: none;
+    color: $light-red;
+    &:focus {
+      border-color: $dark-red;
+      box-shadow: #f5005683 0px 0px 0px 0.25rem;
+    }
+  }
+}
+.was-validated {
+  .form-control {
+    &:valid {
+      border: 1px solid green;
+    }
+    &:invalid {
+      border: 1px solid red;
+    }
+  }
+}
+
+.form_page {
+  p {
+    text-align: center;
+  }
+  button {
+    margin: 0 auto;
+  }
+  .secret {
+    font-size: 25px;
+    font-weight: 600;
+    text-align: center;
+  }
+}

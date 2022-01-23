@@ -25,16 +25,6 @@ h1 {
 a {
   text-decoration: none;
 }
-
-.link_decor {
-  border-bottom: 4px solid #0d6efd;
-  padding-bottom: 3px;
-  transition: all 0.3s ease;
-  &:hover {
-    padding-bottom: 4.5px;
-  }
-}
-
 p {
   font-size: 20px;
   line-height: 35px;
@@ -64,78 +54,6 @@ button {
     color: $dark-red;
   }
 }
-form {
-  label {
-    color: $dark-red;
-  }
-  .form-control {
-    background-color: $white;
-    border: none;
-    color: $light-red;
-    &:focus {
-      border-color: $dark-red;
-      box-shadow: #f5005683 0px 0px 0px 0.25rem;
-    }
-  }
-}
-
-.was-validated {
-  .form-control {
-    &:valid {
-      border: 1px solid green;
-    }
-    &:invalid {
-      border: 1px solid red;
-    }
-  }
-}
-
-.form_page {
-  p {
-    text-align: center;
-  }
-  button {
-    margin: 0 auto;
-  }
-  .secret {
-    font-size: 25px;
-    font-weight: 600;
-    text-align: center;
-  }
-}
-.timer {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  margin: 50px 0;
-}
-
-.buttons {
-  display: flex;
-  justify-content: center;
-  button {
-    margin: 0 50px;
-  }
-}
-
-.container-number {
-  text-align: center;
-}
-.number {
-  margin: 0 10px;
-  font-size: 96px;
-  font-weight: bold;
-}
-.doppelpunkt {
-  font-size: 96px;
-  font-weight: 200;
-  margin: 0 50px;
-}
-.letter {
-  margin: 10px;
-  font-size: 50px;
-}
-
 .preload {
   position: fixed;
   top: 0;
@@ -148,7 +66,6 @@ form {
   transition: opacity 0.5s ease;
   z-index: 99;
 }
-
 .preload-finish {
   pointer-events: none;
   opacity: 0;
