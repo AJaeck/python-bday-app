@@ -1,0 +1,114 @@
+{% extends "base.html" %} {% block content %}
+<body>
+  <div class="container container__100 col-xl-10 col-xxl-8 px-4 py-5">
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %}
+    <div class="alert-custom alert alert-{{ category }} alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %} {% endif %} {% endwith %}
+    <div class="row align-items-center g-lg-5 py-5">
+      <nav>
+        <a class="link-slider" href="/"><i class="fas fa-backward"></i> Zurück</a>
+      </nav>
+      <div class="col-lg-7 text-center text-lg-start">
+        <h1>Send <del>Nudes</del> Pictures</h1>
+        <p>
+          Hast du schöne Erinnerungen an mit Anna über die Jahre festhalten können? Lade deine schönsten Bilder mit oder von Anna hoch. An ihrem Geburtstag
+          entsteht hier eine Gallery mit den schönsten Bildern der letzten 28 Jahre.
+        </p>
+      </div>
+      <div class="col-md-10 mx-auto col-lg-5">
+        <form class="needs-validation box text-center" enctype="multipart/form-data" method="POST" action="/send-pics" novalidate>
+          {{ form.csrf_token }}
+          <div id="box" class="p-4 p-md-5" style="border: 1px solid #f50057; background-color: #ffdddd">
+            <input class="box__file" type="file" name="file" id="input" onchange="handleFiles(this.files)" multiple />
+            <label for="file"
+              ><strong id="fileSelect" class="link-slider" style="cursor: pointer">Bilder hier hochladen</strong><br />
+              oder via Drag & Drop</label
+            >
+            <div id="fileList">
+              <p></p>
+            </div>
+            <div class="box__uploading">Uploading…</div>
+            <div class="box__success">Done!</div>
+            <div class="box__error">Error! <span></span></div>
+          </div>
+          <button class="box__button btn btn-custom btn-custom__reverse" type="submit">Senden 🚀</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script>
+    const fileSelect = document.getElementById("fileSelect"),
+      fileElem = document.getElementById("input"),
+      fileList = document.getElementById("fileList");
+
+    fileSelect.addEventListener(
+      "click",
+      function (e) {
+        if (fileElem) {
+          fileElem.click();
+        }
+        e.preventDefault(); // prevent navigation to "#"
+      },
+      false
+    );
+
+    fileElem.addEventListener("change", handleFiles, false);
+
+    function handleFiles() {
+      if (!this.files.length) {
+        fileList.innerHTML = "<p>Keine Bilder ausgewählt!</p>";
+      } else {
+        fileList.innerHTML = "";
+        const list = document.createElement("ul");
+        fileList.appendChild(list);
+        for (let i = 0; i < this.files.length; i++) {
+          const li = document.createElement("li");
+          list.appendChild(li);
+
+          const img = document.createElement("img");
+          img.src = URL.createObjectURL(this.files[i]);
+          img.height = 60;
+          img.classList.add("obj");
+          img.onload = function () {
+            URL.revokeObjectURL(this.src);
+          };
+          li.appendChild(img);
+          const info = document.createElement("span");
+          info.innerHTML = this.files[i].name + ": " + this.files[i].size + " bytes";
+          li.appendChild(info);
+        }
+      }
+    }
+
+    var box;
+    box = document.getElementById("box");
+    box.addEventListener("dragenter", dragenter, false);
+    box.addEventListener("dragover", dragover, false);
+    box.addEventListener("drop", drop, false);
+    function dragenter(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      console.log("dragendter");
+    }
+    function dragover(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      console.log("dragover");
+    }
+    function drop(e) {
+      e.stopPropagation();
+      e.preventDefault();
+
+      var dt = e.dataTransfer;
+      var files = dt.files;
+
+      handleFiles(files);
+      console.log(files);
+    }
+  </script>
+</body>
+{% endblock %}

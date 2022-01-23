@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% block content %}
 <body>
-  <div class="container">
+  <div class="container container__100 text-center">
     <h1>My Birthday Countdown</h1>
     <div class="timer">
       <div class="container-number">
@@ -24,8 +24,8 @@
       </div>
     </div>
     <div class="buttons">
-      <button type="button" class=""><a href="{{ url_for('glueckwunsch')}}">Send Wishes 💥</a></button>
-      <button type="button" class=""><a href="">Party Time 🎉</a></button>
+      <button class="btn btn-custom" type="button" class=""><a href="{{ url_for('send_wishes')}}">Send Wishes💥</a></button>
+      <button class="btn btn-custom btn-custom__reverse" type="button" class=""><a href="{{ url_for('send_pics')}}">Send Nudes👀</a></button>
     </div>
   </div>
 </body>
