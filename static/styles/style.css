@@ -37,6 +37,10 @@ p {
   transition: all 0.25s ease-in-out, transform 150ms ease;
 }
 
+.btn-custom a {
+  color: #f50057;
+}
+
 .btn-custom:hover {
   color: white;
   background-color: #f50057;
@@ -51,7 +55,21 @@ p {
   box-shadow: #f5005683 0px 0px 0px 0.25rem;
 }
 
-.btn-custom a {
+.btn-custom__reverse {
+  background-color: #f50057;
+  color: #ffdddd;
+}
+
+.btn-custom__reverse a {
+  color: #ffdddd;
+}
+
+.btn-custom__reverse:hover {
+  background-color: transparent;
+  color: #f50057;
+}
+
+.btn-custom__reverse:hover a {
   color: #f50057;
 }
 

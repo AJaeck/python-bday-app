@@ -36,6 +36,9 @@ p {
   border: 2px solid $dark-red;
   font-size: 30px;
   transition: all 0.25s ease-in-out, transform 150ms ease;
+  a {
+    color: $dark-red;
+  }
   &:hover {
     color: rgb(255, 255, 255);
     background-color: $dark-red;
@@ -47,8 +50,19 @@ p {
   &:focus {
     box-shadow: #f5005683 0px 0px 0px 0.25rem;
   }
-  a {
-    color: $dark-red;
+  &__reverse {
+    background-color: $dark-red;
+    color: $white;
+    a {
+      color: $white;
+    }
+    &:hover {
+      background-color: transparent;
+      color: $dark-red;
+      a {
+        color: $dark-red;
+      }
+    }
   }
 }
 .preload {
