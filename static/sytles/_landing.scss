@@ -1,0 +1,30 @@
+.timer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 50px 0;
+}
+.buttons {
+  display: flex;
+  justify-content: center;
+  button {
+    margin: 0 50px;
+  }
+}
+.container-number {
+  text-align: center;
+}
+.number {
+  margin: 0 10px;
+  font-size: 96px;
+  font-weight: bold;
+}
+.doppelpunkt {
+  font-size: 96px;
+  font-weight: 200;
+  margin: 0 50px;
+}
+.letter {
+  margin: 10px;
+  font-size: 50px;
+}
