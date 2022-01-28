@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% block content %}
 <body>
-  <div class="container container__100 col-xl-10 col-xxl-8 px-4 py-5">
+  <div class="container container_100 col-xl-10 col-xxl-8 px-4 py-5">
     {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %}
     <div class="alert-custom alert alert-{{ category }} alert-dismissible fade show" role="alert">
       {{ message }}

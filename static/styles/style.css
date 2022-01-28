@@ -5,17 +5,16 @@ html {
 body {
   font-family: "Roboto", sans-serif;
   background: #ffb7b7;
+}
+
+.container {
+  flex-direction: column;
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 .container__100 {
   height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
 }
 
 h1 {
@@ -99,7 +98,13 @@ p {
 }
 
 /* Breakpoints */
-@media (max-width: 1399.98px) {
+@media screen and (max-width: 575.98px) {
+  h1 {
+    font-size: calc(96px / 2);
+  }
+}
+
+@media screen and (max-width: 1399.98px) {
   h1 {
     font-size: calc(96px / 1.5);
   }
@@ -112,6 +117,33 @@ p {
   }
   .preload img {
     width: 200px;
+  }
+}
+
+@media screen and (max-height: 850px) and (max-width: 991.98px) {
+  .container__100 {
+    height: inherit;
+  }
+  .konfetti {
+    width: calc(600px / 1.5);
+  }
+  .konfetti-500 {
+    width: calc(500px / 1.5);
+  }
+  .konfetti-400 {
+    width: calc(400px / 1.5);
+  }
+  .konfetti-300 {
+    width: calc(300px / 1.5);
+  }
+  .konfetti-200 {
+    width: calc(200px / 1.5);
+  }
+  .konfetti-100 {
+    width: calc(100px / 1.5);
+  }
+  .konfetti-50 {
+    width: calc(50px / 1.5);
   }
 }
 
@@ -197,6 +229,126 @@ p {
 .alert-custom {
   position: absolute;
   top: 10px;
+}
+
+.konfetti {
+  position: fixed;
+  z-index: -2;
+}
+
+.konfetti-green-1 {
+  left: 0;
+  top: 15%;
+  transform: translateX(-60%);
+}
+
+.konfetti-green-2 {
+  bottom: 0;
+  left: 45%;
+  transform: translateY(70%);
+}
+
+.konfetti-yellow-1 {
+  bottom: 0;
+  left: 1%;
+  transform: translateY(50%);
+}
+
+.konfetti-yellow-2 {
+  top: 0;
+  right: 0;
+  transform: translate(50%, -5%);
+}
+
+.konfetti-red-1 {
+  bottom: 0;
+  right: 0;
+  transform: translate(60%, 50%);
+}
+
+.konfetti-red-2 {
+  top: 0;
+  right: 35%;
+  transform: translateY(-80%);
+}
+
+.konfetti-500 {
+  width: 500px;
+}
+
+.konfetti-400 {
+  width: 400px;
+}
+
+.konfetti-300 {
+  width: 300px;
+}
+
+.konfetti-200 {
+  width: 200px;
+}
+
+.konfetti-100 {
+  width: 100px;
+}
+
+.konfetti-50 {
+  width: 50px;
+}
+
+/* Breakpoints */
+@media screen and (max-width: 575.98px) {
+  h1 {
+    font-size: calc(96px / 2);
+  }
+}
+
+@media screen and (max-width: 767.98px) {
+  .konfetti {
+    width: calc(600px / 2.5);
+  }
+  .konfetti-500 {
+    width: calc(500px / 2.5);
+  }
+  .konfetti-400 {
+    width: calc(400px / 2.5);
+  }
+  .konfetti-300 {
+    width: calc(300px / 2.5);
+  }
+  .konfetti-200 {
+    width: calc(200px / 2.5);
+  }
+  .konfetti-100 {
+    width: calc(100px / 2.5);
+  }
+  .konfetti-50 {
+    width: calc(50px / 2.5);
+  }
+}
+
+@media screen and (max-width: 1519.98px) {
+  .konfetti {
+    width: calc(600px / 1.5);
+  }
+  .konfetti-500 {
+    width: calc(500px / 1.5);
+  }
+  .konfetti-400 {
+    width: calc(400px / 1.5);
+  }
+  .konfetti-300 {
+    width: calc(300px / 1.5);
+  }
+  .konfetti-200 {
+    width: calc(200px / 1.5);
+  }
+  .konfetti-100 {
+    width: calc(100px / 1.5);
+  }
+  .konfetti-50 {
+    width: calc(50px / 1.5);
+  }
 }
 
 form label {
