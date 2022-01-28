@@ -36,6 +36,9 @@ body {
   &__100 {
     height: 100vh;
   }
+  &__100-resp {
+    height: 100vh;
+  }
 }
 h1 {
   font-family: "Playfair Display", serif;
@@ -151,7 +154,7 @@ p {
 
 @media screen and (max-height: 850px) and (max-width: 991.98px) {
   .container {
-    &__100 {
+    &__100-resp {
       height: inherit;
     }
   }

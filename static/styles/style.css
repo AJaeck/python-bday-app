@@ -37,6 +37,10 @@ body {
   height: 100vh;
 }
 
+.container__100-resp {
+  height: 100vh;
+}
+
 h1 {
   font-family: "Playfair Display", serif;
   font-size: 96px;
@@ -145,7 +149,7 @@ p {
 }
 
 @media screen and (max-height: 850px) and (max-width: 991.98px) {
-  .container__100 {
+  .container__100-resp {
     height: inherit;
   }
   .konfetti {
