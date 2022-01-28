@@ -1,8 +1,26 @@
-//colors
-$light-red: #f83077;
+//color variables
 $dark-red: #f50057;
+$light-red: #f83077;
 $background: #ffb7b7;
 $white: #ffdddd;
+$black: #2f2e41;
+
+//color classes
+.dark-red {
+  color: $dark-red;
+}
+.light-red {
+  color: $light-red;
+}
+.background {
+  color: $background;
+}
+.white {
+  color: $white;
+}
+.black {
+  color: $black;
+}
 
 html {
   overflow-x: hidden;
@@ -10,22 +28,22 @@ html {
 body {
   font-family: "Roboto", sans-serif;
   background: $background;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 .container {
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
   &__100 {
     height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  }
+  &__100-resp {
+    height: 100vh;
   }
 }
 h1 {
   font-family: "Playfair Display", serif;
   font-size: 96px;
+  color: #1d1d1d;
 }
 a {
   text-decoration: none;
@@ -34,7 +52,7 @@ p {
   font-size: 20px;
   line-height: 35px;
   letter-spacing: 0.2px;
-  color: $light-red;
+  color: $black;
 }
 .btn-custom {
   padding: 10px;
@@ -91,23 +109,26 @@ p {
 }
 /* Breakpoints */
 // X-Small devices (portrait phones, less than 576px)
-@media (max-width: 575.98px) {
+@media screen and (max-width: 575.98px) {
+  h1 {
+    font-size: calc(96px / 2);
+  }
 }
 
 // Small devices (landscape phones, less than 768px)
-@media (max-width: 767.98px) {
+@media screen and (max-width: 767.98px) {
 }
 
 // Medium devices (tablets, less than 992px)
-@media (max-width: 991.98px) {
+@media screen and (max-width: 991.98px) {
 }
 
 // Large devices (desktops, less than 1200px)
-@media (max-width: 1199.98px) {
+@media screen and (max-width: 1199.98px) {
 }
 
 // X-Large devices (large desktops, less than 1400px)
-@media (max-width: 1399.98px) {
+@media screen and (max-width: 1399.98px) {
   h1 {
     font-size: calc(96px / 1.5);
   }
@@ -118,12 +139,44 @@ p {
     font-size: calc(30px / 2);
     line-height: calc(35px / 1.5);
   }
+  a {
+    font-size: calc(30px / 2);
+  }
   .preload {
     img {
       width: 200px;
     }
   }
 }
-
 // XX-Large devices (larger desktops)
+
 // No media query since the xxl breakpoint has no upper bound on its width
+
+@media screen and (max-height: 850px) and (max-width: 991.98px) {
+  .container {
+    &__100-resp {
+      height: inherit;
+    }
+  }
+  .konfetti {
+    width: calc(600px / 1.5);
+    &-500 {
+      width: calc(500px / 1.5);
+    }
+    &-400 {
+      width: calc(400px / 1.5);
+    }
+    &-300 {
+      width: calc(300px / 1.5);
+    }
+    &-200 {
+      width: calc(200px / 1.5);
+    }
+    &-100 {
+      width: calc(100px / 1.5);
+    }
+    &-50 {
+      width: calc(50px / 1.5);
+    }
+  }
+}
