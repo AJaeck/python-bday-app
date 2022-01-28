@@ -203,9 +203,9 @@ p {
   position: absolute;
   width: 75px;
   height: 75px;
-  bottom: 0;
+  bottom: 20%;
   right: 0;
-  transform: translate(25%, -40%);
+  transform: translateX(25%);
   z-index: -1;
   border-radius: 50%;
 }
@@ -234,25 +234,36 @@ p {
 }
 
 /* Breakpoints */
-@media (max-width: 1399.98px) {
-  .timer {
+@media (max-width: 575.98px) {
+  .doppelpunkt {
+    margin: 0 !important;
+  }
+  .number::after {
+    width: 25px !important;
+    height: 25px !important;
+  }
+  .buttons {
     display: flex;
     justify-content: center;
-    align-items: flex-start;
-    margin: 50px 0;
   }
+  .buttons button {
+    margin: 0 calc(50px / 2.5);
+  }
+}
+
+@media (max-width: 1399.98px) {
   .number {
-    margin: 0 10px;
     font-size: calc(96px / 2);
-    font-weight: bold;
+  }
+  .number::after {
+    width: 35px;
+    height: 35px;
   }
   .doppelpunkt {
     font-size: calc(96px / 2);
-    font-weight: 200;
     margin: 0 calc(50px / 2);
   }
   .letter {
-    margin: 10px;
     font-size: calc(50px / 2);
   }
 }
@@ -291,6 +302,7 @@ p {
 .konfetti {
   position: fixed;
   z-index: -2;
+  transition: all 0.3s;
 }
 
 .konfetti-green-1 {
@@ -362,25 +374,34 @@ p {
 
 @media screen and (max-width: 767.98px) {
   .konfetti {
-    width: calc(600px / 2.5);
+    width: calc(600px / 2.5) !important;
+  }
+  .konfetti-green-1 {
+    top: 25%;
+  }
+  .konfetti-green-2 {
+    left: 65% !important;
+  }
+  .konfetti-red-1 {
+    transform: translate(60%, -50%);
   }
   .konfetti-500 {
-    width: calc(500px / 2.5);
+    width: calc(500px / 2.5) !important;
   }
   .konfetti-400 {
-    width: calc(400px / 2.5);
+    width: calc(400px / 2.5) !important;
   }
   .konfetti-300 {
-    width: calc(300px / 2.5);
+    width: calc(300px / 2) !important;
   }
   .konfetti-200 {
-    width: calc(200px / 2.5);
+    width: calc(200px / 2.5) !important;
   }
   .konfetti-100 {
-    width: calc(100px / 2.5);
+    width: calc(100px / 2.5) !important;
   }
   .konfetti-50 {
-    width: calc(50px / 2.5);
+    width: calc(50px / 2.5) !important;
   }
 }
 
