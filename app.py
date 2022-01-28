@@ -114,20 +114,18 @@ def send_pics():
 @app.route('/send-wishes', methods=["GET", "POST"])
 def send_wishes():    
     form = GW_Form()
-
     # form data
-    name=form.name.data
+    fname=form.fname.data
+    lname=form.lname.data
     email=form.email.data
     gw_text=form.gw_text.data
-    secret=form.secret.data
-
     if form.validate_on_submit():  
-        
         # Send Confirmation Email with SIB
         url_add_contact = base + "contacts/doubleOptinConfirmation"
         payload = {
                 "attributes": {
-                    "VORNAME": name,
+                    "VORNAME": fname,
+                    "NACHNAME": lname,
                     "GW_TEXT": gw_text
                 },
                 "includeListIds": [2],
@@ -137,12 +135,12 @@ def send_wishes():
                 "redirectionUrl": "https://anna-hat-geburtstag.com/"
         }
         response = requests.request("POST", url_add_contact, json=payload, headers=headers)
-        print("New Form Submission from: " + name)
+        print("New Form Submission from:" + fname + lname)
         print(response.text)
         return redirect('versand', code=307)
     elif form.secret.errors:
         error_statement = "Das war wohl nicht die richtige Antwort auf die Sicherheitsfrage."
-        return render_template("send-wishes.html", form=form, error_statement=error_statement, name=name, gw_text=gw_text, email=email )
+        return render_template("send-wishes.html", form=form, error_statement=error_statement, fname=fname, lname=lname, gw_text=gw_text, email=email )
     else:
         print(form.errors)
 
@@ -153,9 +151,9 @@ def form():
 
     if request.method == 'POST':
         form = GW_Form()
-        name=form.name.data
+        fname=form.fname.data
         email=form.email.data
 
-        return render_template("versand.html", name=name, email=email)
+        return render_template("versand.html", fname=fname, email=email)
 
     return redirect('/')

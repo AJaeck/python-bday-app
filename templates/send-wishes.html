@@ -25,16 +25,28 @@
     <form id="gw-form" class="row g-3 needs-validation" method="POST" action="/send-wishes" novalidate>
       {{ form.csrf_token }}
       <div class="form-floating col-md-6">
-        {% if form.name.errors %} {{ form.name(class_="form-control is-invalid", placeholder="Name") }}
+        {% if form.fname.errors %} {{ form.fname(class_="form-control is-invalid", placeholder="Vorname") }}
         <div class="invalid-feedback">
-          {% for error in form.name.errors %}
+          {% for error in form.fname.errors %}
           <span>{{ error }}</span>
           {% endfor %}
         </div>
-        {% else %} {{ form.name(class_="form-control", placeholder="Name") }}
+        {% else %} {{ form.fname(class_="form-control", placeholder="fName") }}
         <div class="valid-feedback">Läuft 👍</div>
-        <div class="invalid-feedback">Du hast deinen Namen vergessen dum dum 🤓</div>
-        {% endif %} {{ form.name.label }}
+        <div class="invalid-feedback">Du hast deinen fNamen vergessen dum dum 🤓</div>
+        {% endif %} {{ form.fname.label }}
+      </div>
+      <div class="form-floating col-md-6">
+        {% if form.lname.errors %} {{ form.lname(class_="form-control is-invalid", placeholder="Nachname") }}
+        <div class="invalid-feedback">
+          {% for error in form.lname.errors %}
+          <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+        {% else %} {{ form.lname(class_="form-control", placeholder="lname") }}
+        <div class="valid-feedback">Läuft 👍</div>
+        <div class="invalid-feedback">Du hast deinen lnamen vergessen dum dum 🤓</div>
+        {% endif %} {{ form.lname.label }}
       </div>
       <div class="form-floating col-md-6">
         {% if form.email.errors %} {{ form.email(class_="form-control is-invalid", placeholder="email") }}
@@ -48,7 +60,18 @@
         <div class="invalid-feedback">Ohne E-Mail ohne mich 😡</div>
         {% endif %} {{ form.email.label }}
       </div>
-
+      <div class="form-floating col-md-6">
+        {% if form.secret.errors %} {{ form.secret(class_="form-control is-invalid", placeholder="secret") }}
+        <div class="invalid-feedback">
+          {% for error in form.secret.errors %}
+          <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+        {% else %} {{ form.secret(class_="form-control", placeholder="secret") }}
+        <div class="valid-feedback">Läuft 👍</div>
+        <div class="invalid-feedback">Beantworte bitte die Sicherheitsfrage du Bot 🤖</div>
+        {% endif %} {{ form.secret.label }}
+      </div>
       <div class="form-floating col-12">
         {% if form.gw_text.errors %} {{ form.gw_text(class_="form-control is-invalid", placeholder="gw_text") }}
         <div class="invalid-feedback">
@@ -62,25 +85,13 @@
         {% endif %} {{ form.gw_text.label }}
       </div>
       <div class="form-floating col-md-6">
-        {% if form.secret.errors %} {{ form.secret(class_="form-control is-invalid", placeholder="secret") }}
-        <div class="invalid-feedback">
-          {% for error in form.secret.errors %}
-          <span>{{ error }}</span>
-          {% endfor %}
-        </div>
-        {% else %} {{ form.secret(class_="form-control", placeholder="secret") }}
-        <div class="valid-feedback">Läuft 👍</div>
-        <div class="invalid-feedback">Beantworte bitte die Sicherheitsfrage du Bot 🤖</div>
-        {% endif %} {{ form.secret.label }}
-      </div>
-      <div class="form-floating col-md-6">
         {{ form.recaptcha }}
         <div class="invalid-feedback">Bist du ein Bot 🤖?</div>
         {% if form.recaptcha.errors %} {% for error in form.recaptcha.errors %}
         <span style="width: 100%; margin-top: 0.25rem; font-size: 0.875em; color: #dc3545">Haken setzen du Bot 🤖</span>
         {% endfor %} {% endif %}
       </div>
-      <div class="col-12 d-grid">
+      <div class="form-floating col-md-6">
         <button class="btn btn-custom btn-custom__reverse mx-auto" type="submit">Senden 🚀</button>
       </div>
     </form>
