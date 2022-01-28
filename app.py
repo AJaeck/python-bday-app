@@ -76,7 +76,7 @@ def send_pics():
         images = form.file.data
         image_numbers = 0
         for i in images:
-            image_numbers = 1
+            image_numbers = 0
             # Image save to static image folder
             image_filename = secure_filename(i.filename)
             image_name = str(uuid.uuid1()) + "_" + image_filename
