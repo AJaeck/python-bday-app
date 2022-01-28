@@ -1,8 +1,26 @@
-//colors
+//color variables
 $dark-red: #f50057;
 $light-red: #f83077;
 $background: #ffb7b7;
 $white: #ffdddd;
+$black: #2f2e41;
+
+//color classes
+.dark-red {
+  color: $dark-red;
+}
+.light-red {
+  color: $light-red;
+}
+.background {
+  color: $background;
+}
+.white {
+  color: $white;
+}
+.black {
+  color: $black;
+}
 
 html {
   overflow-x: hidden;
@@ -22,6 +40,7 @@ body {
 h1 {
   font-family: "Playfair Display", serif;
   font-size: 96px;
+  color: #1d1d1d;
 }
 a {
   text-decoration: none;
@@ -30,7 +49,7 @@ p {
   font-size: 20px;
   line-height: 35px;
   letter-spacing: 0.2px;
-  color: $light-red;
+  color: $black;
 }
 .btn-custom {
   padding: 10px;
@@ -116,6 +135,9 @@ p {
   p {
     font-size: calc(30px / 2);
     line-height: calc(35px / 1.5);
+  }
+  a {
+    font-size: calc(30px / 2);
   }
   .preload {
     img {

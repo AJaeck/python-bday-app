@@ -1,3 +1,23 @@
+.dark-red {
+  color: #f50057;
+}
+
+.light-red {
+  color: #f83077;
+}
+
+.background {
+  color: #ffb7b7;
+}
+
+.white {
+  color: #ffdddd;
+}
+
+.black {
+  color: #2f2e41;
+}
+
 html {
   overflow-x: hidden;
 }
@@ -20,6 +40,7 @@ body {
 h1 {
   font-family: "Playfair Display", serif;
   font-size: 96px;
+  color: #1d1d1d;
 }
 
 a {
@@ -30,7 +51,7 @@ p {
   font-size: 20px;
   line-height: 35px;
   letter-spacing: 0.2px;
-  color: #f83077;
+  color: #2f2e41;
 }
 
 .btn-custom {
@@ -115,6 +136,9 @@ p {
     font-size: calc(30px / 2);
     line-height: calc(35px / 1.5);
   }
+  a {
+    font-size: calc(30px / 2);
+  }
   .preload img {
     width: 200px;
   }
@@ -164,9 +188,34 @@ p {
 }
 
 .number {
+  position: relative;
   margin: 0 10px;
   font-size: 96px;
   font-weight: bold;
+}
+
+.number::after {
+  content: "";
+  position: absolute;
+  width: 75px;
+  height: 75px;
+  bottom: 0;
+  right: 0;
+  transform: translate(25%, -40%);
+  z-index: -1;
+  border-radius: 50%;
+}
+
+.number-green::after {
+  background: #22aaa2;
+}
+
+.number-red::after {
+  background: #ff6584;
+}
+
+.number-yellow::after {
+  background: #fbc661;
 }
 
 .doppelpunkt {
@@ -212,6 +261,10 @@ p {
 
 .link_decor:hover {
   padding-bottom: 4.5px;
+}
+
+.link {
+  font-size: 20px;
 }
 
 .link-slider {
@@ -324,6 +377,12 @@ p {
   }
   .konfetti-50 {
     width: calc(50px / 2.5);
+  }
+}
+
+@media screen and (max-width: 1399.98px) {
+  .link {
+    font-size: calc(30px / 2);
   }
 }
 

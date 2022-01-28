@@ -12,12 +12,38 @@
   }
 }
 .number {
+  position: relative;
   margin: 0 10px;
   font-size: 96px;
   font-weight: bold;
+  &::after {
+    content: "";
+    position: absolute;
+    width: 75px;
+    height: 75px;
+    bottom: 0;
+    right: 0;
+    transform: translate(25%, -40%);
+    z-index: -1;
+    border-radius: 50%;
+  }
+  &-green {
+    &::after {
+      background: #22aaa2;
+    }
+  }
+  &-red {
+    &::after {
+      background: #ff6584;
+    }
+  }
+  &-yellow {
+    &::after {
+      background: #fbc661;
+    }
+  }
 }
-#days {
-}
+
 .doppelpunkt {
   font-size: 96px;
   font-weight: 200;
