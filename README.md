@@ -15,6 +15,8 @@ Source: https://www.digitalocean.com/community/tutorials/how-to-deploy-a-flask-a
 
 3. Make sure to use Git Dev branch for development
 
+4. ...
+
 ### Deployment
 
 3. For deployment, merge Dev branch with Main branch which will trigger Digital Ocean App Deployment
