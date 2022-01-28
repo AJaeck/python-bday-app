@@ -95,7 +95,7 @@ def send_pics():
             os.remove(image_path)
             print("Remove Temp Image")
             image_numbers = image_numbers + 1
-        flash(f'{image_numbers} Bilder wurden erfolgreich hochgeladen', 'success')
+        flash(f'{image_numbers} Bild(er) wurde(n) erfolgreich hochgeladen', 'success')
 
         #imagekit.upload_file(
         #file= "https://www.gettyimages.at/gi-resources/images/500px/983794168.jpg", # required
@@ -134,7 +134,7 @@ def send_wishes():
                 "updateEnabled": True,
                 "email": email,
                 "templateId": 1,
-                "redirectionUrl": "http://127.0.0.1:5000/"
+                "redirectionUrl": "https://anna-hat-geburtstag.com/"
         }
         response = requests.request("POST", url_add_contact, json=payload, headers=headers)
         print("New Form Submission from: " + name)

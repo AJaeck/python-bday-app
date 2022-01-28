@@ -5,8 +5,10 @@
     <p class="text-center">
       Bevor deine Glückwünsche abgeschickt werden können, musst du deine E-Mail Adresse bestätigen. Du solltest hierfür eine Bestätigungsmail an {{ email }} erhalten haben.
     </p>
-    <img loading="lazy" src="{{ url_for('static', filename='images/success.gif')}}" alt="success_gif" style="width: 200px;">
-    <a class="text-center link-slider" href="/" style="width: 100%; display: block;">Zurück zum Countdown</a>
+    <img class="my-1 mx-auto" loading="lazy" src="{{ url_for('static', filename='images/success.gif')}}" alt="success_gif" style="width: 300px;">
+    <div class="text-center my-2">
+      <a class="link-slider" href="/">><i class="fas fa-backward"></i>Zurück zum Countdown</a>
+    </div>
     </p>
   </div>
 </body>
