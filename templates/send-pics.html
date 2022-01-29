@@ -1,9 +1,31 @@
 {% extends "base.html" %} {% block content %}
 <body>
-  <div class="container container_100-resp col-xl-10 col-xxl-8 px-4 py-5">
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+    <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+      <path
+        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"
+      />
+    </symbol>
+    <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+      <path
+        d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"
+      />
+    </symbol>
+    <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+      <path
+        d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"
+      />
+    </symbol>
+  </svg>
+
+  <div class="container container__100-resp col-xl-10 col-xxl-8 px-4 py-5">
     {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %}
     <div class="alert-custom alert alert-{{ category }} alert-dismissible fade show" role="alert">
-      {{ message }}
+      {% if category == 'success' %}
+      <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill" /></svg>
+      {% elif category == 'danger' %}
+      <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill" /></svg>
+      {% endif %} {{ message }}
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     {% endfor %} {% endif %} {% endwith %}
@@ -13,7 +35,7 @@
       </nav>
       <div class="col-lg-7 text-center text-lg-start">
         <h1>Send <del>Nudes</del> Pictures</h1>
-        <p>
+        <p class="py-2">
           Hast du schöne Erinnerungen an mit Anna über die Jahre festhalten können? Lade deine schönsten Bilder mit oder von Anna hoch. An ihrem Geburtstag
           entsteht hier eine Gallery mit den schönsten Bildern der letzten 28 Jahre.
         </p>
@@ -22,13 +44,24 @@
         <form class="needs-validation box text-center" enctype="multipart/form-data" method="POST" action="/send-pics" novalidate>
           {{ form.csrf_token }}
           <div id="box" class="p-4 p-md-5" style="border: 1px solid #f50057; background-color: #ffdddd">
-            <input class="box__file" type="file" name="file" id="input" onchange="handleFiles(this.files)" multiple />
+            <input
+              class="box__file"
+              type="file"
+              name="file"
+              id="input"
+              onchange="handleFiles(this.files)"
+              multiple
+              required="required"
+              accept=".jpg,.jpeg,.gif,.svg.,.png"
+              aria-label="file example"
+            />
             <label for="file"
-              ><strong id="fileSelect" class="link-slider" style="cursor: pointer">Bilder hier</strong> oder mit<br />
+              ><strong id="fileSelect" class="link-slider" style="cursor: pointer">Bilde(r) hier</strong> oder mit<br />
               Drag & Drop hochladen<br />
               <small>(max. 25MB/Bild)</small>
             </label>
-            <div id="fileList">
+            <div class="invalid-feedback">Example invalid form file feedback</div>
+            <div id="fileList" class="text-start p-0">
               <p></p>
             </div>
             <div class="box__uploading">Uploading…</div>
@@ -65,21 +98,38 @@
       } else {
         fileList.innerHTML = "";
         const list = document.createElement("ul");
+        list.classList.add("p-0");
         fileList.appendChild(list);
         for (let i = 0; i < this.files.length; i++) {
           const li = document.createElement("li");
           list.appendChild(li);
 
+          const fileSize = this.files[i].size / 1000;
+          console.log(fileSize);
+          let fileSizeRounded = Math.round(fileSize) + "KB";
+          if (fileSize > 1000) {
+            var numb = fileSize / 1000;
+            fileSizeRounded = Math.round((numb + Number.EPSILON) * 100) / 100 + "MB";
+          }
+
+          let fileName = this.files[i].name;
+          if (fileName.length >= 12) {
+            let splitName = fileName.split(".");
+            fileName = splitName[0].substring(0, 12) + "... ." + splitName[1];
+          }
+
           const img = document.createElement("img");
           img.src = URL.createObjectURL(this.files[i]);
-          img.height = 60;
+          img.width = 45;
           img.classList.add("obj");
+          img.classList.add("py-1");
           img.onload = function () {
             URL.revokeObjectURL(this.src);
           };
           li.appendChild(img);
           const info = document.createElement("span");
-          info.innerHTML = this.files[i].name + ": " + this.files[i].size + " bytes";
+          info.classList.add("text");
+          info.innerHTML = " " + fileName + " " + fileSizeRounded;
           li.appendChild(info);
         }
       }

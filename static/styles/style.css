@@ -51,11 +51,16 @@ a {
   text-decoration: none;
 }
 
-p {
+p,
+.text {
   font-size: 20px;
   line-height: 35px;
   letter-spacing: 0.2px;
   color: #2f2e41;
+}
+
+ul {
+  list-style-type: none;
 }
 
 .btn-custom {
@@ -136,7 +141,8 @@ p {
   .btn-custom {
     font-size: calc(30px / 1.5);
   }
-  p {
+  p,
+  .text {
     font-size: calc(30px / 2);
     line-height: calc(35px / 1.5);
   }
@@ -296,7 +302,9 @@ p {
 
 .alert-custom {
   position: absolute;
-  top: 10px;
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .konfetti {

@@ -70,13 +70,15 @@ def auth():
 def send_pics(): 
 
     form = Upload_Form()
+    image_numbers = 0
+    print(app.config['UPLOAD_FOLDER'])
+    image_name="bild.jpg"
+    image_path = os.path.join(app.config['UPLOAD_FOLDER'], image_name) 
+    print(image_path)
 
     if form.validate_on_submit():
-        files_filenames = []
         images = form.file.data
-        image_numbers = 0
         for i in images:
-            image_numbers = 0
             # Image save to static image folder
             image_filename = secure_filename(i.filename)
             image_name = str(uuid.uuid1()) + "_" + image_filename
@@ -93,56 +95,49 @@ def send_pics():
             )
             print("Upload binary", upload)
             os.remove(image_path)
-            print("Remove Temp Image")
-            image_numbers = image_numbers + 1
-        flash(f'{image_numbers} Bilder wurden erfolgreich hochgeladen', 'success')
-
-        #imagekit.upload_file(
-        #file= "https://www.gettyimages.at/gi-resources/images/500px/983794168.jpg", # required
-        #file_name= "test.jpg", # required
-        #options= {
-        #    "folder" : "/example-folder/",
-        #    "tags": ["sample-tag"],
-        #    "is_private_file": False,
-        #    "use_unique_file_name": True,
-        #    "response_fields": ["is_private_file", "tags"],
-        #    }
-        #)   
-
+            print("Remove Temp Image" + " #" + str(image_numbers) + ' ' + image_name)
+            if upload['error'] != None:
+                print('Error: ' + upload['error']['message'])
+            else:
+                image_numbers += 1
+        if image_numbers > 1:
+            flash(f'{image_numbers} Bilder wurden erfolgreich hochgeladen', 'success')
+        elif image_numbers == 1:
+            flash(f'{image_numbers} Bild wurde erfolgreich hochgeladen', 'success')
+        else:
+            flash('Es wurde kein Bild ausgewählt.', 'danger')
     return render_template("send-pics.html", form=form)
 
 @app.route('/send-wishes', methods=["GET", "POST"])
 def send_wishes():    
     form = GW_Form()
-
     # form data
-    name=form.name.data
+    fname=form.fname.data
+    lname=form.lname.data
     email=form.email.data
     gw_text=form.gw_text.data
-    secret=form.secret.data
-
     if form.validate_on_submit():  
-        
         # Send Confirmation Email with SIB
         url_add_contact = base + "contacts/doubleOptinConfirmation"
         payload = {
                 "attributes": {
-                    "VORNAME": name,
+                    "VORNAME": fname,
+                    "NACHNAME": lname,
                     "GW_TEXT": gw_text
                 },
                 "includeListIds": [2],
                 "updateEnabled": True,
                 "email": email,
                 "templateId": 1,
-                "redirectionUrl": "http://127.0.0.1:5000/"
+                "redirectionUrl": "https://anna-hat-geburtstag.com/"
         }
         response = requests.request("POST", url_add_contact, json=payload, headers=headers)
-        print("New Form Submission from: " + name)
+        print("New Form Submission from:" + fname + lname)
         print(response.text)
         return redirect('versand', code=307)
     elif form.secret.errors:
         error_statement = "Das war wohl nicht die richtige Antwort auf die Sicherheitsfrage."
-        return render_template("send-wishes.html", form=form, error_statement=error_statement, name=name, gw_text=gw_text, email=email )
+        return render_template("send-wishes.html", form=form, error_statement=error_statement, fname=fname, lname=lname, gw_text=gw_text, email=email )
     else:
         print(form.errors)
 
@@ -153,9 +148,9 @@ def form():
 
     if request.method == 'POST':
         form = GW_Form()
-        name=form.name.data
+        fname=form.fname.data
         email=form.email.data
 
-        return render_template("versand.html", name=name, email=email)
+        return render_template("versand.html", fname=fname, email=email)
 
     return redirect('/')
