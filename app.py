@@ -70,13 +70,15 @@ def auth():
 def send_pics(): 
 
     form = Upload_Form()
+    image_numbers = 0
+    print(app.config['UPLOAD_FOLDER'])
+    image_name="bild.jpg"
+    image_path = os.path.join(app.config['UPLOAD_FOLDER'], image_name) 
+    print(image_path)
 
     if form.validate_on_submit():
-        files_filenames = []
         images = form.file.data
-        image_numbers = 0
         for i in images:
-            image_numbers = 0
             # Image save to static image folder
             image_filename = secure_filename(i.filename)
             image_name = str(uuid.uuid1()) + "_" + image_filename
@@ -93,22 +95,17 @@ def send_pics():
             )
             print("Upload binary", upload)
             os.remove(image_path)
-            print("Remove Temp Image")
-            image_numbers = image_numbers + 1
-        flash(f'{image_numbers} Bild(er) wurde(n) erfolgreich hochgeladen', 'success')
-
-        #imagekit.upload_file(
-        #file= "https://www.gettyimages.at/gi-resources/images/500px/983794168.jpg", # required
-        #file_name= "test.jpg", # required
-        #options= {
-        #    "folder" : "/example-folder/",
-        #    "tags": ["sample-tag"],
-        #    "is_private_file": False,
-        #    "use_unique_file_name": True,
-        #    "response_fields": ["is_private_file", "tags"],
-        #    }
-        #)   
-
+            print("Remove Temp Image" + " #" + str(image_numbers) + ' ' + image_name)
+            if upload['error'] != None:
+                print('Error: ' + upload['error']['message'])
+            else:
+                image_numbers += 1
+        if image_numbers > 1:
+            flash(f'{image_numbers} Bilder wurden erfolgreich hochgeladen', 'success')
+        elif image_numbers == 1:
+            flash(f'{image_numbers} Bild wurde erfolgreich hochgeladen', 'success')
+        else:
+            flash('Es wurde kein Bild ausgewählt.', 'danger')
     return render_template("send-pics.html", form=form)
 
 @app.route('/send-wishes', methods=["GET", "POST"])

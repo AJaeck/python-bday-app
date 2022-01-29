@@ -21,8 +21,11 @@
   <div class="container container__100-resp col-xl-10 col-xxl-8 px-4 py-5">
     {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %}
     <div class="alert-custom alert alert-{{ category }} alert-dismissible fade show" role="alert">
+      {% if category == 'success' %}
       <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill" /></svg>
-      {{ message }}
+      {% elif category == 'danger' %}
+      <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill" /></svg>
+      {% endif %} {{ message }}
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     {% endfor %} {% endif %} {% endwith %}
@@ -41,12 +44,23 @@
         <form class="needs-validation box text-center" enctype="multipart/form-data" method="POST" action="/send-pics" novalidate>
           {{ form.csrf_token }}
           <div id="box" class="p-4 p-md-5" style="border: 1px solid #f50057; background-color: #ffdddd">
-            <input class="box__file" type="file" name="file" id="input" onchange="handleFiles(this.files)" multiple />
+            <input
+              class="box__file"
+              type="file"
+              name="file"
+              id="input"
+              onchange="handleFiles(this.files)"
+              multiple
+              required="required"
+              accept=".jpg,.jpeg,.gif,.svg.,.png"
+              aria-label="file example"
+            />
             <label for="file"
               ><strong id="fileSelect" class="link-slider" style="cursor: pointer">Bilde(r) hier</strong> oder mit<br />
               Drag & Drop hochladen<br />
               <small>(max. 25MB/Bild)</small>
             </label>
+            <div class="invalid-feedback">Example invalid form file feedback</div>
             <div id="fileList">
               <p></p>
             </div>
