@@ -61,7 +61,7 @@
               <small>(max. 25MB/Bild)</small>
             </label>
             <div class="invalid-feedback">Example invalid form file feedback</div>
-            <div id="fileList">
+            <div id="fileList" class="text-start p-0">
               <p></p>
             </div>
             <div class="box__uploading">Uploading…</div>
@@ -98,21 +98,38 @@
       } else {
         fileList.innerHTML = "";
         const list = document.createElement("ul");
+        list.classList.add("p-0");
         fileList.appendChild(list);
         for (let i = 0; i < this.files.length; i++) {
           const li = document.createElement("li");
           list.appendChild(li);
 
+          const fileSize = this.files[i].size / 1000;
+          console.log(fileSize);
+          let fileSizeRounded = Math.round(fileSize) + "KB";
+          if (fileSize > 1000) {
+            var numb = fileSize / 1000;
+            fileSizeRounded = Math.round((numb + Number.EPSILON) * 100) / 100 + "MB";
+          }
+
+          let fileName = this.files[i].name;
+          if (fileName.length >= 12) {
+            let splitName = fileName.split(".");
+            fileName = splitName[0].substring(0, 12) + "... ." + splitName[1];
+          }
+
           const img = document.createElement("img");
           img.src = URL.createObjectURL(this.files[i]);
-          img.height = 60;
+          img.width = 45;
           img.classList.add("obj");
+          img.classList.add("py-1");
           img.onload = function () {
             URL.revokeObjectURL(this.src);
           };
           li.appendChild(img);
           const info = document.createElement("span");
-          info.innerHTML = this.files[i].name + ": " + this.files[i].size + " bytes";
+          info.classList.add("text");
+          info.innerHTML = " " + fileName + " " + fileSizeRounded;
           li.appendChild(info);
         }
       }

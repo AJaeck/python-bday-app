@@ -48,11 +48,15 @@ h1 {
 a {
   text-decoration: none;
 }
-p {
+p,
+.text {
   font-size: 20px;
   line-height: 35px;
   letter-spacing: 0.2px;
   color: $black;
+}
+ul {
+  list-style-type: none;
 }
 .btn-custom {
   padding: 10px;
@@ -135,7 +139,8 @@ p {
   .btn-custom {
     font-size: calc(30px / 1.5);
   }
-  p {
+  p,
+  .text {
     font-size: calc(30px / 2);
     line-height: calc(35px / 1.5);
   }
