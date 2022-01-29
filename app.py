@@ -106,7 +106,7 @@ def send_pics():
             flash(f'{image_numbers} Bild wurde erfolgreich hochgeladen', 'success')
         else:
             flash('Es wurde kein Bild ausgewählt.', 'danger')
-    return render_template("send-pics.html", form=form)
+    return render_template("send-pics.html", form=form, extensions=ALLOWED_EXTENSIONS)
 
 @app.route('/send-wishes', methods=["GET", "POST"])
 def send_wishes():    

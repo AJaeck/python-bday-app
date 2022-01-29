@@ -36,16 +36,16 @@
       <div class="col-lg-7 text-center text-lg-start">
         <h1>Send <del>Nudes</del> Pictures</h1>
         <p class="py-2">
-          Hast du schöne Erinnerungen an mit Anna über die Jahre festhalten können? Lade deine schönsten Bilder mit oder von Anna hoch. An ihrem Geburtstag
-          entsteht hier eine Gallery mit den schönsten Bildern der letzten 28 Jahre.
+          Du hast tolle Erinnerungen mit Anna digital über die Jahre festhalten können? Lade hier lustige, peinliche oder schöne Bilder/Gifs von Anna hoch. An
+          ihrem Geburtstag entsteht hier eine Gallery mit den besten Bildern der letzten 28 Jahre.
         </p>
       </div>
       <div class="col-md-10 mx-auto col-lg-5">
-        <form class="needs-validation box text-center" enctype="multipart/form-data" method="POST" action="/send-pics" novalidate>
+        <form id="" class="needs-validation box text-center" enctype="multipart/form-data" method="POST" action="/send-pics" novalidate>
           {{ form.csrf_token }}
-          <div id="box" class="p-4 p-md-5" style="border: 1px solid #f50057; background-color: #ffdddd">
+          <div id="box" class="p-4 p-md-5 box" style="border: 1px solid #f50057; background-color: #ffdddd">
             <input
-              class="box__file"
+              class="box-file"
               type="file"
               name="file"
               id="input"
@@ -56,24 +56,25 @@
               aria-label="file example"
             />
             <label for="file"
-              ><strong id="fileSelect" class="link-slider" style="cursor: pointer">Bilde(r) hier</strong> oder mit<br />
-              Drag & Drop hochladen<br />
-              <small>(max. 25MB/Bild)</small>
+              ><i class="fas fa-upload fa-2x py-1"></i><br /><span id="fileSelect"
+                >Medien per <strong>Klick</strong> oder<br /><strong>Drag & Drop</strong> hochladen</span
+              >
             </label>
-            <div class="invalid-feedback">Example invalid form file feedback</div>
             <div id="fileList" class="text-start p-0">
               <p></p>
             </div>
-            <div class="box__uploading">Uploading…</div>
-            <div class="box__success">Done!</div>
-            <div class="box__error">Error! <span></span></div>
           </div>
-          <button class="box__button btn btn-custom btn-custom__reverse" type="submit">Senden 🚀</button>
+          <div class="text-start">
+            <small><strong>Dateigröße:</strong> max. 25MB/Bild</small>
+          </div>
+          <div class="text-start">
+            <small><strong>Formate:</strong>{% for ext in extensions %} .{{ ext }}{% endfor %}</small>
+          </div>
+          <button class="btn btn-custom btn-custom__reverse" type="submit">Senden 🚀</button>
         </form>
       </div>
     </div>
   </div>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script>
     const fileSelect = document.getElementById("fileSelect"),
       fileElem = document.getElementById("input"),
@@ -133,32 +134,6 @@
           li.appendChild(info);
         }
       }
-    }
-
-    var box;
-    box = document.getElementById("box");
-    box.addEventListener("dragenter", dragenter, false);
-    box.addEventListener("dragover", dragover, false);
-    box.addEventListener("drop", drop, false);
-    function dragenter(e) {
-      e.stopPropagation();
-      e.preventDefault();
-      console.log("dragendter");
-    }
-    function dragover(e) {
-      e.stopPropagation();
-      e.preventDefault();
-      console.log("dragover");
-    }
-    function drop(e) {
-      e.stopPropagation();
-      e.preventDefault();
-
-      var dt = e.dataTransfer;
-      var files = dt.files;
-
-      handleFiles(files);
-      console.log(files);
     }
   </script>
 </body>

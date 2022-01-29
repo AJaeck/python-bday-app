@@ -25,40 +25,21 @@ form {
     }
   }
 }
-/* Drag & Drop 
-* Source: https://css-tricks.com/drag-and-drop-file-uploading/ 
-*/
-.box__file {
-  width: 0.1px;
-  height: 0.1px;
-  overflow: hidden;
-  position: absolute;
-  opacity: 0;
-  z-index: -1;
+/* Drag & Drop */
+.box {
+  position: relative;
+  &-file {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
 }
-.box__dragndrop,
-.box__uploading,
-.box__success,
-.box__error {
-  display: none;
-}
-.box.has-advanced-upload {
-  background-color: white;
-  outline: 2px dashed black;
-  outline-offset: -10px;
-}
-.box.has-advanced-upload .box__dragndrop {
-  display: inline;
-}
-.box.is-dragover {
-  background-color: grey;
-}
-.box.is-uploading .box__input {
-  visibility: none;
-}
-.box.is-uploading .box__uploading {
-  display: block;
-}
+
 /* Breakpoints */
 // X-Small devices (portrait phones, less than 576px)
 @media (max-width: 575.98px) {
