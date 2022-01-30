@@ -17,7 +17,18 @@
       />
     </symbol>
   </svg>
-
+  <!-- Offcanvas List -->
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop" aria-labelledby="offcanvasWithBackdropLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasWithBackdropLabel">Deine Medien</h5>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <div id="fileList" class="text-start p-0" style="font-family: 'Playfair Display', serif">
+        <p></p>
+      </div>
+    </div>
+  </div>
   <div class="container container__100-resp col-xl-10 col-xxl-8 px-4 py-5">
     {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %}
     <div class="alert-custom alert alert-{{ category }} alert-dismissible fade show" role="alert">
@@ -30,111 +41,50 @@
     </div>
     {% endfor %} {% endif %} {% endwith %}
     <div class="row align-items-center g-lg-5 py-5">
-      <nav>
-        <a class="link-slider link" href="/"><i class="fas fa-backward"></i> Zurück</a>
-      </nav>
       <div class="col-lg-7 text-center text-lg-start">
+        <nav class="text-start mb-4">
+          <a class="link-slider link" href="/"><i class="fas fa-backward"></i> Zurück</a>
+        </nav>
         <h1>Send <del>Nudes</del> Pictures</h1>
         <p class="py-2">
           Du hast tolle Erinnerungen mit Anna digital über die Jahre festhalten können? Lade hier lustige, peinliche oder schöne Bilder/Gifs von Anna hoch. An
           ihrem Geburtstag entsteht hier eine Gallery mit den besten Bildern der letzten 28 Jahre.
         </p>
+        <div class="text-start">
+          <small><strong>Dateigröße:</strong> max. 25MB/Bild</small>
+        </div>
+        <div class="text-start">
+          <small><strong>Unterstützte Formate:</strong>{% for ext in extensions %} .{{ ext }}{% endfor %}</small>
+        </div>
       </div>
       <div class="col-md-10 mx-auto col-lg-5">
-        <form id="" class="needs-validation box text-center" enctype="multipart/form-data" method="POST" action="/send-pics" novalidate>
+        <form id="upload_form" class="needs-validation text-center" enctype="multipart/form-data" method="POST" action="/send-pics" novalidate>
           {{ form.csrf_token }}
-          <div id="box" class="p-4 p-md-5 box" style="border: 1px solid #f50057; background-color: #ffdddd">
-            <input
-              class="box-file"
-              type="file"
-              name="file"
-              id="input"
-              onchange="handleFiles(this.files)"
-              multiple
-              required="required"
-              accept=".jpg,.jpeg,.gif,.svg.,.png"
-              aria-label="file example"
-            />
+          <div id="box" class="box">
+            {{ form.file(class_="box-file") }}
             <label for="file"
               ><i class="fas fa-upload fa-2x py-1"></i><br /><span id="fileSelect"
                 >Medien per <strong>Klick</strong> oder<br /><strong>Drag & Drop</strong> hochladen</span
               >
             </label>
-            <div id="fileList" class="text-start p-0">
-              <p></p>
-            </div>
+            <button
+              id="showMediaBtn"
+              class="btn btn-primary z-10 mx-auto"
+              type="button"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#offcanvasWithBackdrop"
+              aria-controls="offcanvasWithBackdrop"
+              style="display: none"
+            >
+              Keine Medien ausgewählt
+            </button>
           </div>
-          <div class="text-start">
-            <small><strong>Dateigröße:</strong> max. 25MB/Bild</small>
-          </div>
-          <div class="text-start">
-            <small><strong>Formate:</strong>{% for ext in extensions %} .{{ ext }}{% endfor %}</small>
-          </div>
+
           <button class="btn btn-custom btn-custom__reverse" type="submit">Senden 🚀</button>
         </form>
       </div>
     </div>
   </div>
-  <script>
-    const fileSelect = document.getElementById("fileSelect"),
-      fileElem = document.getElementById("input"),
-      fileList = document.getElementById("fileList");
-
-    fileSelect.addEventListener(
-      "click",
-      function (e) {
-        if (fileElem) {
-          fileElem.click();
-        }
-        e.preventDefault(); // prevent navigation to "#"
-      },
-      false
-    );
-
-    fileElem.addEventListener("change", handleFiles, false);
-
-    function handleFiles() {
-      if (!this.files.length) {
-        fileList.innerHTML = "<p>Keine Bilder ausgewählt!</p>";
-      } else {
-        fileList.innerHTML = "";
-        const list = document.createElement("ul");
-        list.classList.add("p-0");
-        fileList.appendChild(list);
-        for (let i = 0; i < this.files.length; i++) {
-          const li = document.createElement("li");
-          list.appendChild(li);
-
-          const fileSize = this.files[i].size / 1000;
-          console.log(fileSize);
-          let fileSizeRounded = Math.round(fileSize) + "KB";
-          if (fileSize > 1000) {
-            var numb = fileSize / 1000;
-            fileSizeRounded = Math.round((numb + Number.EPSILON) * 100) / 100 + "MB";
-          }
-
-          let fileName = this.files[i].name;
-          if (fileName.length >= 12) {
-            let splitName = fileName.split(".");
-            fileName = splitName[0].substring(0, 12) + "... ." + splitName[1];
-          }
-
-          const img = document.createElement("img");
-          img.src = URL.createObjectURL(this.files[i]);
-          img.width = 45;
-          img.classList.add("obj");
-          img.classList.add("py-1");
-          img.onload = function () {
-            URL.revokeObjectURL(this.src);
-          };
-          li.appendChild(img);
-          const info = document.createElement("span");
-          info.classList.add("text");
-          info.innerHTML = " " + fileName + " " + fileSizeRounded;
-          li.appendChild(info);
-        }
-      }
-    }
-  </script>
+  <script src="{{ url_for('static', filename='js/drag_drop.js')}}"></script>
 </body>
 {% endblock %}

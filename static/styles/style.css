@@ -47,6 +47,12 @@ h1 {
   color: #1d1d1d;
 }
 
+h5 {
+  font-family: "Playfair Display", serif;
+  color: #1d1d1d;
+  font-weight: bold;
+}
+
 a {
   text-decoration: none;
 }
@@ -154,7 +160,7 @@ ul {
   }
 }
 
-@media screen and (max-height: 850px) and (max-width: 991.98px) {
+@media screen and (max-height: 850px), (max-width: 991.98px) {
   .container__100-resp {
     height: inherit;
   }
@@ -305,6 +311,15 @@ ul {
   top: 5%;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.z-10 {
+  z-index: 10;
+  position: relative;
+}
+
+.show {
+  display: block !important;
 }
 
 .konfetti {
@@ -473,6 +488,9 @@ form textarea {
 /* Drag & Drop */
 .box {
   position: relative;
+  border: 1px solid #f50057;
+  background-color: #ffdddd;
+  padding: 5rem;
 }
 
 .box-file {
@@ -484,6 +502,16 @@ form textarea {
   position: absolute;
   opacity: 0;
   cursor: pointer;
+  z-index: 5;
+}
+
+.box-is-active {
+  box-shadow: #f5005683 0px 0px 0px 0.25rem;
+  border: 0px solid #f50057 !important;
+}
+
+.modal-backdrop {
+  z-index: 100;
 }
 
 /* Breakpoints */
