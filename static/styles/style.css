@@ -322,6 +322,10 @@ ul {
   display: block !important;
 }
 
+.hide {
+  display: none !important;
+}
+
 .konfetti {
   position: fixed;
   z-index: -2;
