@@ -45,6 +45,11 @@ h1 {
   font-size: 96px;
   color: #1d1d1d;
 }
+h5 {
+  font-family: "Playfair Display", serif;
+  color: #1d1d1d;
+  font-weight: bold;
+}
 a {
   text-decoration: none;
 }
@@ -154,10 +159,8 @@ ul {
   }
 }
 // XX-Large devices (larger desktops)
-
 // No media query since the xxl breakpoint has no upper bound on its width
-
-@media screen and (max-height: 850px) and (max-width: 991.98px) {
+@media screen and (max-height: 850px), (max-width: 991.98px) {
   .container {
     &__100-resp {
       height: inherit;

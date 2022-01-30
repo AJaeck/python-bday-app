@@ -4,7 +4,8 @@ from flask import Flask, request, render_template, redirect, flash
 from werkzeug.utils import secure_filename
 import uuid as uuid
 import os
-import base64
+import pymsteams
+
 
 # Code of your application, which uses environment variables (e.g. from `os.environ` or
 # `os.getenv`) as if they came from the actual environment.
@@ -31,6 +32,9 @@ imagekit = ImageKit(
     public_key=os.getenv("IK_Public_Key"),
     url_endpoint = os.getenv("IK_Endpoint")
 )
+
+# You must create the connectorcard object with the Microsoft Webhook URL
+myTeamsMessage = pymsteams.connectorcard(os.getenv("TEAMS_URL"))
 
 # set file upload definitions
 UPLOAD_FOLDER = 'static/images/uploads/'
@@ -71,11 +75,6 @@ def send_pics():
 
     form = Upload_Form()
     image_numbers = 0
-    print(app.config['UPLOAD_FOLDER'])
-    image_name="bild.jpg"
-    image_path = os.path.join(app.config['UPLOAD_FOLDER'], image_name) 
-    print(image_path)
-
     if form.validate_on_submit():
         images = form.file.data
         for i in images:
@@ -102,10 +101,23 @@ def send_pics():
                 image_numbers += 1
         if image_numbers > 1:
             flash(f'{image_numbers} Bilder wurden erfolgreich hochgeladen', 'success')
+            # Title
+            myTeamsMessage.title("New Media Upload")
+            # Add text to the message.
+            myTeamsMessage.text(f'{image_numbers} media items were uploaded')
+            # send the message to MS Teams.
+            myTeamsMessage.send()
         elif image_numbers == 1:
             flash(f'{image_numbers} Bild wurde erfolgreich hochgeladen', 'success')
+            # Title
+            myTeamsMessage.title("New Media Upload")
+            # Add text to the message.
+            myTeamsMessage.text(f'{image_numbers} media items were uploaded')
+            # send the message to MS Teams.
+            myTeamsMessage.send()
         else:
             flash('Es wurde kein Bild ausgewählt.', 'danger')
+
     return render_template("send-pics.html", form=form, extensions=ALLOWED_EXTENSIONS)
 
 @app.route('/send-wishes', methods=["GET", "POST"])
@@ -132,8 +144,16 @@ def send_wishes():
                 "redirectionUrl": "https://anna-hat-geburtstag.com/"
         }
         response = requests.request("POST", url_add_contact, json=payload, headers=headers)
-        print("New Form Submission from:" + fname + lname)
+        print(f'New form submission from {fname} {lname}')
         print(response.text)
+
+        # MS Teams Card Title
+        myTeamsMessage.title(f'New form submission from: {fname} {lname}')
+        # Add text to the message.
+        myTeamsMessage.text(gw_text)
+        # send the message to MS Teams.
+        myTeamsMessage.send()
+
         return redirect('versand', code=307)
     elif form.secret.errors:
         error_statement = "Das war wohl nicht die richtige Antwort auf die Sicherheitsfrage."

@@ -30,7 +30,9 @@ class GW_Form(FlaskForm):
         secret_list = ['Hailey', 'hailey']
         if secret.data not in secret_list:
             raise ValidationError('Das war die falsche Antwort 😪')
+
 class Upload_Form(FlaskForm):
-    file = MultipleFileField('Lade ein Bild hoch', validators=[
-        FileAllowed(['png', 'jpg', 'jpeg', 'gif', 'svg'], 'Es sind nur folgende Formate erlaubt: .png, .jpg, .jpeg, .gif, .svg')
+    file = MultipleFileField('Lade ein Bild hoch', render_kw={'onchange': 'handleFiles(this.files)'}, validators=[
+        FileAllowed(['png', 'jpg', 'jpeg', 'gif', 'svg'], 'Es sind nur folgende Formate erlaubt: .png, .jpg, .jpeg, .gif, .svg'),
+        DataRequired('Du hast keine Bilder hochgeladen')
     ])

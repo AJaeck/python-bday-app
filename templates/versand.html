@@ -3,7 +3,7 @@
   <div class="container container__100 text-center">
     <h1>Das hat geklappt {{ fname }}</h1>
     <p class="text-center">
-      Bevor deine Glückwünsche abgeschickt werden können, musst du deine E-Mail Adresse bestätigen. Du solltest hierfür eine Bestätigungsmail an {{ email }} erhalten haben.
+      Bevor deine Glückwünsche abgeschickt werden können, musst du deine E-Mail Adresse bestätigen. Du solltest hierfür eine Bestätigungsmail an <strong>{{ email }}</strong> erhalten haben. Bitte schaue auch in deinem Spam-Ordner nach.
     </p>
     <img class="my-1 mx-auto" loading="lazy" src="{{ url_for('static', filename='images/success.gif')}}" alt="success_gif" style="width: 300px;">
     <div class="text-center my-2">

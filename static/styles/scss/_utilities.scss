@@ -26,7 +26,16 @@
   left: 50%;
   transform: translateX(-50%);
 }
-
+.z-10 {
+  z-index: 10;
+  position: relative;
+}
+.show {
+  display: block !important;
+}
+.hide {
+  display: none !important;
+}
 .konfetti {
   position: fixed;
   z-index: -2;
