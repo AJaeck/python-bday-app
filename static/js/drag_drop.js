@@ -3,7 +3,10 @@ const fileSelect = document.getElementById("fileSelect"),
   fileList = document.getElementById("fileList"),
   fileListNumb = document.getElementById("fileListNumb"),
   showMediaBtn = document.getElementById("showMediaBtn"),
-  box = document.getElementById("box");
+  box = document.getElementById("box"),
+  spinner = document.getElementById("spinner"),
+  buttonText = document.getElementById("buttonText"),
+  submitBtn = document.getElementById("submitBtn");
 
 fileSelect.addEventListener(
   "click",
@@ -15,6 +18,13 @@ fileSelect.addEventListener(
   },
   false
 );
+
+function loading(){
+  // Show Spinner and Uploading Text
+  spinner.classList.remove("d-none");
+  buttonText.innerHTML = " Uploading...";
+  submitBtn.disabled = true;
+}
 
 /* events fired on the drop targets */
 box.addEventListener("dragover", function( event ) {
@@ -42,6 +52,7 @@ function handleFiles() {
   } else {
     fileList.innerHTML = "";
     showMediaBtn.innerHTML = "";
+
     var fileNumb = 0;
     const list = document.createElement("ul");
     list.classList.add("p-0");

@@ -54,11 +54,19 @@
           <small><strong>Mediengröße:</strong> max. 250MB pro Upload </small>
         </div>
         <div class="text-start">
-          <small><strong>Unterstützte Formate:</strong>{% for ext in extensions %} .{{ ext }}{% endfor %}</small>
+          <small><strong>Unterstützte Formate:</strong>{% for ext in extensions %} {{ ext }}{% endfor %}</small>
         </div>
       </div>
       <div class="col-md-10 mx-auto col-lg-5">
-        <form id="upload_form" class="needs-validation text-center" enctype="multipart/form-data" method="POST" action="/send-pics" novalidate>
+        <form
+          id="upload_form"
+          class="needs-validation text-center"
+          enctype="multipart/form-data"
+          method="POST"
+          action="/send-pics"
+          onsubmit="loading()"
+          novalidate
+        >
           {{ form.csrf_token }}
           <div id="box" class="box">
             {{ form.file(class_="box-file") }}
@@ -81,7 +89,7 @@
           </div>
 
           <button id="submitBtn" class="text-center btn btn-custom btn-custom__reverse" type="submit" style="width: 300px">
-            <i id="spinner" class="fas fa-spinner fa-pulse hide"></i><span id="buttonText">Senden 🚀</span>
+            <i id="spinner" class="fas fa-spinner fa-pulse d-none"></i><span id="buttonText">Senden 🚀</span>
           </button>
         </form>
       </div>
