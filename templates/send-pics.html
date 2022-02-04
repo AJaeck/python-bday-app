@@ -40,25 +40,33 @@
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     {% endfor %} {% endif %} {% endwith %}
+    <nav class="text-start mb-4">
+      <a class="link-slider link" href="/"><i class="fas fa-backward"></i> Zurück</a>
+    </nav>
     <div class="row align-items-center g-lg-5 py-5">
       <div class="col-lg-7 text-center text-lg-start">
-        <nav class="text-start mb-4">
-          <a class="link-slider link" href="/"><i class="fas fa-backward"></i> Zurück</a>
-        </nav>
         <h1>Send <del>Nudes</del> Pictures</h1>
         <p class="py-2">
           Du hast tolle Erinnerungen mit Anna digital über die Jahre festhalten können? Lade hier lustige, peinliche oder schöne Bilder/Gifs von Anna hoch. An
           ihrem Geburtstag entsteht hier eine Gallery mit den besten Bildern der letzten 28 Jahre.
         </p>
         <div class="text-start">
-          <small><strong>Dateigröße:</strong> max. 25MB/Bild</small>
+          <small><strong>Mediengröße:</strong> max. 250MB pro Upload </small>
         </div>
         <div class="text-start">
-          <small><strong>Unterstützte Formate:</strong>{% for ext in extensions %} .{{ ext }}{% endfor %}</small>
+          <small><strong>Unterstützte Formate:</strong>{% for ext in extensions %} {{ ext }}{% endfor %}</small>
         </div>
       </div>
       <div class="col-md-10 mx-auto col-lg-5">
-        <form id="upload_form" class="needs-validation text-center" enctype="multipart/form-data" method="POST" action="/send-pics" novalidate>
+        <form
+          id="upload_form"
+          class="needs-validation text-center"
+          enctype="multipart/form-data"
+          method="POST"
+          action="/send-pics"
+          onsubmit="loading()"
+          novalidate
+        >
           {{ form.csrf_token }}
           <div id="box" class="box">
             {{ form.file(class_="box-file") }}
@@ -81,7 +89,7 @@
           </div>
 
           <button id="submitBtn" class="text-center btn btn-custom btn-custom__reverse" type="submit" style="width: 300px">
-            <span id="spinner" class="spinner-border spinner-border-lg hide" role="status" aria-hidden="true"></span><span id="buttonText">Senden 🚀</span>
+            <i id="spinner" class="fas fa-spinner fa-pulse d-none"></i><span id="buttonText">Senden 🚀</span>
           </button>
         </form>
       </div>
@@ -89,18 +97,4 @@
   </div>
 </body>
 <script src="{{ url_for('static', filename='js/drag_drop.js')}}"></script>
-<script>
-  form = document.getElementById("upload_form");
-  button = document.getElementById("submitBtn");
-  buttonText = document.getElementById("buttonText");
-  spinner = document.getElementById("spinner");
-  form.addEventListener("submit", addLoadingButton);
-  function addLoadingButton() {
-    button.disabled = true;
-    const loadingButton = document.createElement("button");
-    spinner.classList.add("show");
-    spinner.classList.remove("hide");
-    buttonText.innerHTML = " Uploading...";
-  }
-</script>
 {% endblock %}
