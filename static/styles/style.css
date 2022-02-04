@@ -509,7 +509,7 @@ form textarea {
   z-index: 5;
 }
 
-.box-is-active {
+.box-is-active, .box:hover {
   box-shadow: #f5005683 0px 0px 0px 0.25rem;
   border: 0px solid #f50057 !important;
 }
