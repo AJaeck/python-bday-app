@@ -207,8 +207,6 @@ def form():
 def gallery():
     
     image_req = imagekit.list_files({
-        "skip": 10,
-        "limit": 3,
     })
 
     image_res = image_req['response']
@@ -220,4 +218,4 @@ def gallery():
 
     print (image_path_list)
 
-    return render_template("gallery.html", image_path_list=image_path_list)
+    return render_template("gallery.html", image_path_list=image_path_list, url_endpoint=os.getenv("IK_Endpoint"))
