@@ -1,0 +1,33 @@
+{% extends "base.html" %} {% block content %}
+<body>
+  <h1>hi</h1>
+  <script type="text/javascript" src="https://unpkg.com/imagekit-javascript/dist/imagekit.min.js"></script>
+  <script>
+    const pathListRaw = "{{image_path_list}}";
+    const pathList = pathListRaw.split(",");
+    const urlEndpoint = "https://ik.imagekit.io/annabday";
+    var imagekit = new ImageKit({
+      urlEndpoint: urlEndpoint,
+    });
+    var urlList = [];
+
+    for (var i = 0; i < pathList.length; i++) {
+      path = pathList[i];
+      var imageURL = imagekit.url({
+        path: "/" + path,
+        urlEndpoint: urlEndpoint,
+        transformation: [
+          {
+            height: "300",
+            width: "400",
+          },
+        ],
+      });
+      console.log(imageURL);
+      urlList.push(imageURL);
+    }
+    urlList.pop();
+    console.log(urlList);
+  </script>
+</body>
+{% endblock %}
