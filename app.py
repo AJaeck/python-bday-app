@@ -1,9 +1,10 @@
 # Flask docs @ https://flask.palletsprojects.com/en/2.0.x/
+from email.mime import image
 import re
 from sre_constants import SUCCESS
 from unicodedata import name
 from urllib import response
-from flask import Flask, request, render_template, redirect, flash, abort, url_for
+from flask import Flask, request, render_template, redirect, flash, jsonify
 from werkzeug.utils import secure_filename
 import uuid as uuid
 import os
@@ -202,16 +203,19 @@ def form():
 
     return redirect('/')
 
-@app.route("/upload-video", methods=["GET", "POST"])
-def upload_video():
+@app.route("/gallery")
+def gallery():
+    
+    image_req = imagekit.list_files({
+    })
 
-    if request.method == "POST":
+    image_res = image_req['response']
+    image_name_list = [name['name'] for name in image_res]
+    image_path_list = ""
 
-        file = request.files["file"]
+    for name in image_name_list:
+        image_path_list += name + ","
 
-        print("File uploaded")
-        print(file)
+    print (image_path_list)
 
-        return "ok"
-
-    return "ok"
+    return render_template("gallery.html", image_path_list=image_path_list, url_endpoint=os.getenv("IK_Endpoint"))
