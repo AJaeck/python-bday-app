@@ -165,7 +165,7 @@ def send_wishes():
                     "NACHNAME": lname,
                     "GW_TEXT": gw_text
                 },
-                "includeListIds": [2],
+                "includeListIds": [5],
                 "updateEnabled": True,
                 "email": email,
                 "templateId": 1,
