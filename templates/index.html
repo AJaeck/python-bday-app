@@ -1,7 +1,8 @@
 {% extends "base.html" %} {% block content %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
 <body>
-  <div class="container container__100 text-center">
+  <div id="" class="container container__100 text-center">
     <h1>My Birthday Countdown</h1>
     <div class="timer">
       <div class="container-number">
@@ -25,10 +26,76 @@
       </div>
     </div>
     <div class="buttons">
-      <button class="btn btn-custom" type="button" class=""><a href="{{ url_for('send_wishes')}}">Send Wishes💥</a></button>
-      <button class="btn btn-custom btn-custom__reverse" type="button" class=""><a href="{{ url_for('send_pics')}}">Send Pics📷</a></button>
+      <button id="btnWishes" class="btn btn-custom" type="button"><a href="{{ url_for('send_wishes')}}">Send Wishes💥</a></button>
+      <button id="btnMemories" class="btn btn-custom btn-custom__reverse d-none" type="button">
+        <a href="{{ url_for('gallery')}}">❤ See Memories ❤</a>
+      </button>
+      <button id="btnPics" class="btn btn-custom btn-custom__reverse" type="button"><a href="{{ url_for('send_pics')}}">Send Pics📷</a></button>
     </div>
   </div>
 </body>
 <script src="{{ url_for('static', filename='js/countdown.js')}}"></script>
+<script>
+  // Set the date we're counting down to
+  var countDownDate = new Date("Feb 11, 2022 00:00:00").getTime();
+
+  // Update the count down every 1 second
+  var x = setInterval(function () {
+    // Get today's date and time
+    var now = new Date().getTime();
+
+    // Find the distance between now and the count down date
+    var distance = countDownDate - now;
+
+    // Time calculations for days, hours, minutes and seconds
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // Output the result in an element with id="demo"
+    document.getElementById("days").innerHTML = days;
+    document.getElementById("hours").innerHTML = hours;
+    document.getElementById("minutes").innerHTML = minutes;
+    document.getElementById("seconds").innerHTML = seconds;
+
+    // If the count down is over, write some text
+    if (distance <= 0) {
+      const jsConfetti = new JSConfetti();
+
+      setTimeout(() => {
+        jsConfetti.addConfetti({
+          emojis: ["🦄"],
+          emojiSize: 50,
+          confettiNumber: 35,
+        });
+      }, 1500);
+      setTimeout(() => {
+        jsConfetti.addConfetti();
+      }, 3000);
+
+      const btnWishes = document.getElementById("btnWishes");
+      const btnPics = document.getElementById("btnPics");
+      const btnMemories = document.getElementById("btnMemories");
+      btnMemories.classList.remove("d-none");
+
+      clearInterval(x);
+
+      document.getElementById("days").innerHTML = 00;
+      document.getElementById("hours").innerHTML = 00;
+      document.getElementById("minutes").innerHTML = 00;
+      document.getElementById("seconds").innerHTML = 00;
+
+      jsConfetti.addConfetti();
+
+      // WITHOUT Timelines (only using tweens with delays):
+      gsap.from("#btnMemories", { y: -10000, duration: 1 });
+      gsap.from("#btnMemories", { opacity: 0, duration: 1, delay: 1 });
+      gsap.to("#btnWishes", { x: -2000, duration: 7 });
+      gsap.to("#btnWishes", { opacity: 0, duration: 1 });
+      gsap.to("#btnPics", { x: 2000, duration: 7 });
+      gsap.to("#btnPics", { opacity: 0, duration: 1 });
+    }
+  }, 1000);
+</script>
 {% endblock %}
