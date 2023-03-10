@@ -1,4 +1,4 @@
-# Anna's Birthday App
+# Birthday App
 
 ## First Steps for Development and Deployment
 
